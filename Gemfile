@@ -18,6 +18,7 @@ gem 'dummy-auth-rails',
 
 group :development, :test do
   gem 'rspec-rails', '2.14.1'
+  gem 'factory_girl_rails', '4.3.0'
 end
 
 group :doc do
