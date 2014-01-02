@@ -1,0 +1,9 @@
+dummy_users_enabled: true
+dummy_auth_password: cems
+
+users:
+  fernando.di.bartolo:
+    groups: ""
+
+  heraldo.gimenez:
+    groups: ""

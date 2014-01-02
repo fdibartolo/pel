@@ -11,6 +11,11 @@ gem 'coffee-rails', '4.0.1'
 gem 'jquery-rails'
 gem 'jbuilder', '2.0.1'
 
+# authentication strategies ####
+gem 'dummy-auth-rails',
+  git: "git@innersource.accenture.com:/gems-and-plugins/dummy-auth-rails.git"
+#################################
+
 group :development, :test do
   gem 'rspec-rails', '2.14.1'
 end

@@ -1,3 +1,11 @@
+GIT
+  remote: git@innersource.accenture.com:/gems-and-plugins/dummy-auth-rails.git
+  revision: ea07cde195231f121abc3571ecbec2fd052dc589
+  specs:
+    dummy-auth-rails (0.6.0)
+      activesupport (>= 3.1)
+      rails (>= 3.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -121,6 +129,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (= 4.0.1)
+  dummy-auth-rails!
   jbuilder (= 2.0.1)
   jquery-rails
   mysql2 (= 0.3.14)
