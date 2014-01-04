@@ -6,5 +6,9 @@ FactoryGirl.define do
     body      'some question'
     priority  1
     score     8
-  end  
+  end
+
+  factory :user do
+    enterprise_id "leonel.messi"
+  end
 end
