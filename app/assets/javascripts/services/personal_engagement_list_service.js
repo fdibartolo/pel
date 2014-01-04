@@ -3,27 +3,11 @@ angular.module('cems.services', [])
     '$q', '$http', function ($q, $http) {
 
       var all = function () {
-        return [];
-        // var deferred = $q.defer();
-        // var auth = "Basic " + btoa(credentials.username + ":" + credentials.password);
-        // var custom_headers = { headers: { 'Authorization': auth} };
-
-        // $loadDialog.showModal('Loading, please wait...');
-
-        // $http.get(projectsUrl, custom_headers).
-        //   success(function (data, status) {
-        //     SessionService.setAuthToken(auth);
-        //     SessionService.setUserProjects(data);
-        //     deferred.resolve();
-        //     $loadDialog.hide();
-        //   }).
-        //   error(function (data, status) {
-        //     deferred.reject();
-        //     $loadDialog.hide();
-        //     alert("Unable to login, please make sure your credentials are valid");
-        //   });
-
-        // return deferred.promise;
+        return [
+          {Id:1, Name : "Pel 1"},
+          {Id:2, Name:"Pel 2"},
+          {Id:3, Name:"Pel 3"}
+        ];
       };
 
       return {

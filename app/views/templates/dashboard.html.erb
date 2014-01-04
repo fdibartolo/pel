@@ -1,2 +1,10 @@
-<h1>Welcome to your Dashboard</h1>
-<p>My PELs...</p>
+<div ng-cloak ng-init="init()">
+  <h3>Welcome to your Dashboard</h3>
+  <p>My PELs...</p>
+
+  <ul>
+    <li ng-repeat="pel in pels">
+      <p>{{pel.Name}}</p>
+    </li>
+  </ul>
+<div>
