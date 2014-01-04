@@ -1,3 +1,6 @@
 Cems::Application.routes.draw do
-  root "home#index"
+  get '/dashboard' => 'home#index'
+  get '/templates/:path.html' => 'templates#template', :constraints => { :path => /.+/  }
+
+  root 'home#index'
 end
