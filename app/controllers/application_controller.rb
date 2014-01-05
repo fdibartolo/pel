@@ -7,13 +7,12 @@ class ApplicationController < ActionController::Base
   after_action :set_user_in_session
 
   def set_user_in_session
-    unless session[:user_id]
-      session[:user_id] = @opensso_user['uid'].first.split("@").first if @opensso_user['uid']
-      puts "User in session: #{session[:user_id]}"
+    unless session[:enterprise_id]
+      session[:enterprise_id] = @opensso_user['uid'].first.split("@").first if @opensso_user['uid']
     end
   end
 
   def current_user
-    @current_user ||= User.find_by(enterprise_id: session[:user_id]) if session[:user_id]
+    @current_user ||= User.find_by(enterprise_id: session[:enterprise_id]) if session[:enterprise_id]
   end
 end

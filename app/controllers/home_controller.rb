@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @username = current_user.enterprise_id
+    @enterprise_id = current_user.enterprise_id
   end
 end
