@@ -39,4 +39,8 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  # Render views by default within controller tests
+  # https://github.com/rails/jbuilder/issues/32
+  config.render_views = true
 end
