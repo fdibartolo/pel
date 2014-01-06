@@ -35,7 +35,7 @@ describe PersonalEngagementList do
     it "priority cannot be the same for both" do
       @pel.questions.each {|q| q.priority = 1}
       @pel.valid?.should be_false
-      @pel.errors[:questions].should include "is invalid"
+      @pel.errors[:'questions.priority'].should include "has already been taken"
     end
   end
 end
