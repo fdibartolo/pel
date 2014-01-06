@@ -4,7 +4,10 @@
 
   <ul>
     <li ng-repeat="pel in pels">
-      <p>{{pel.Name}}</p>
+      <p>{{pel.id}} - (Created Date: {{pel.created_at}})</p>
+      <ul><li ng-repeat="question in pel.questions">
+        <p>Area: {{question.body}} - Priority: {{question.priority}} - Score: {{question.score}}<p>
+      </li></ul>
     </li>
   </ul>
 <div>

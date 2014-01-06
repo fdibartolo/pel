@@ -1,15 +1,14 @@
 angular.module('cems.services', []).factory 'PersonalEngagementListService', ['$q', '$http', ($q, $http) ->
   all = ->
-    [
-      Id: 1
-      Name: 'Pel 1'
-    ,
-      Id: 2
-      Name: 'Pel 2'
-    ,
-      Id: 3
-      Name: 'Pel 3'
-    ]
+    deferred = $q.defer()
+    $http.get('/lists').success((data, status) ->
+      deferred.resolve(data)
+    ).error (data, status) ->
+      deferred.reject()
+      alert "Unable to get lists"
+
+    deferred.promise
 
   all: all
 ]
+
