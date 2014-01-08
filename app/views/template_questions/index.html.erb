@@ -1,0 +1,18 @@
+<h1>Template Questions</h1>
+
+<table>
+  <tbody>
+    <% @template_questions.each do |template_question| %>
+      <tr>
+        <td><%= template_question.body %></td>
+        <td>
+          <%= link_to 'Edit', edit_template_question_path(template_question) %> |
+          <%= link_to 'Delete', template_question, method: :delete, data: { confirm: 'Are you sure you want to delete this template question?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= link_to 'New Template Question', new_template_question_path %>

@@ -11,4 +11,8 @@ FactoryGirl.define do
   factory :user do
     enterprise_id "leonel.messi"
   end
+
+  factory :template_question do
+    body "some question"
+  end  
 end

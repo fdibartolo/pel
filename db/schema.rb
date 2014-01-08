@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140104202124) do
+ActiveRecord::Schema.define(version: 20140107233241) do
 
   create_table "personal_engagement_lists", force: true do |t|
     t.datetime "created_at"
@@ -25,6 +25,12 @@ ActiveRecord::Schema.define(version: 20140104202124) do
     t.integer  "score"
     t.string   "comments"
     t.integer  "personal_engagement_list_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "template_questions", force: true do |t|
+    t.string   "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
