@@ -38,4 +38,17 @@ describe PersonalEngagementList do
       @pel.errors[:'questions.priority'].should include "has already been taken"
     end
   end
+
+  it "should build questions from params" do
+    params = {'questions' => [
+      {'body' => 'Q1', 'priority' => 1, 'score' => 4}, 
+      {'body' => 'Q2', 'priority' => 1, 'score' => 7}
+    ]}
+
+    pel = FactoryGirl.create :personal_engagement_list
+    pel.build_questions_from params['questions']
+    pel.questions.should have(2).items
+    pel.questions.first.body.should == 'Q1'
+    pel.questions.last.score.should == 7
+  end
 end

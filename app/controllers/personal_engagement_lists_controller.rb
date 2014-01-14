@@ -11,4 +11,19 @@ class PersonalEngagementListsController < ApplicationController
       @pel.questions.build(attributes: { body: template_question.body })
     end
   end
+
+  def create
+    @pel = PersonalEngagementList.create!(user: current_user) if current_user
+    return head :bad_request unless @pel
+
+    @pel.build_questions_from personal_engagement_list_params
+
+    @pel.questions.each {|q| q.save}
+    @pel.save
+  end
+
+  private
+  def personal_engagement_list_params
+    params.require(:questions).each {|q| q.keep_if {|k,v| %w[body priority score].include? k }}
+  end
 end
