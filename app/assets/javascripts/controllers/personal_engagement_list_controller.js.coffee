@@ -4,8 +4,9 @@ angular.module('cems.controllers').controller 'PersonalEngagementListController'
       $scope.pel = pel
 
   $scope.submit = ->
-    alert "Boom!"
-    console.log $scope.pel
+    PersonalEngagementListService.submit($scope.pel).then (result) ->
+      if result.errors.length == 0
+        $location.path("/dashboard")
 
   $scope.cancel = ->
     $location.path("/dashboard")

@@ -19,6 +19,17 @@ angular.module('cems.services', []).factory 'PersonalEngagementListService', ['$
 
     deferred.promise
 
+  submit = (pel) ->
+    deferred = $q.defer()
+    $http.post('/create', pel).success((data, status) ->
+      deferred.resolve(data)
+    ).error (data, status) ->
+      deferred.reject()
+      alert "Unable to submit PEL"
+
+    deferred.promise
+
   all: all,
-  new: new_pel
+  new: new_pel,
+  submit: submit
 ]
