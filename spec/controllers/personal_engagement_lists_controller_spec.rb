@@ -74,11 +74,17 @@ describe PersonalEngagementListsController do
         #   response.status.should == 422
         # end
 
+        it "should not get saved" do
+          expect {
+            post :create, payload, valid_session
+          }.to change(PersonalEngagementList, :count).by(0)
+        end
+
         it "should return errors hash with given description" do
           post :create, payload, valid_session
           body = JSON.parse response.body
           body['errors'].count.should == 1
-          body['errors']['questions.priority'].should include 'has already been taken'
+          body['errors'].should include 'Priority has already been taken'
         end
       end
 

@@ -5,8 +5,10 @@ angular.module('cems.controllers').controller 'PersonalEngagementListController'
 
   $scope.submit = ->
     PersonalEngagementListService.submit($scope.pel).then (result) ->
-      if result.errors.length == 0
+      if result.errors == undefined
         $location.path("/dashboard")
+      else
+        alert result.errors
 
   $scope.cancel = ->
     $location.path("/dashboard")

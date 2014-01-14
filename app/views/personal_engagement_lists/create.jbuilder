@@ -1,5 +1,5 @@
-if @pel.errors.any?
-  json.errors @pel.errors
+if @errors.any?
+  json.errors @errors
 #  json.response do |json|
 #    json.status 422
 #  end

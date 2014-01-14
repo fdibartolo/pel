@@ -18,8 +18,21 @@ class PersonalEngagementListsController < ApplicationController
 
     @pel.build_questions_from personal_engagement_list_params
 
-    @pel.questions.each {|q| q.save}
-    @pel.save
+    begin
+      @errors = []
+      PersonalEngagementList.transaction do
+        @pel.questions.each do |q| 
+          q.save
+          unless q.valid?
+            @errors.concat(q.errors.full_messages).uniq
+            raise ActiveRecord::RollbackException
+          end
+        end
+        @pel.save
+      end
+    rescue Exception => e
+      @pel.destroy
+    end
   end
 
   private
