@@ -15,5 +15,6 @@
 //= require lib/angular.min
 //= require lib/angular-route.min
 //= require lib/angular-resource.min
+//= require lib/bootstrap.min
 //= require cems
 //= require_tree .
