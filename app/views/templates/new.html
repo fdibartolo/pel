@@ -1,11 +1,15 @@
 <div ng-cloak ng-init="init()">
   <h3>Create New Pel</h3>
 
+  <ul ng-show="errors != null" style="color:red;">
+    <li ng-repeat="error in errors">{{error}}</li>
+  </ul>
+
   <ul>
     <li ng-repeat="question in pel.questions">
       <p>Area: {{question.body}}</p>
       <input type="text" ng-model="question.priority" placeholder="Priority"></input>
-      <input type="number" ng-model="question.score" placeholder="Score"></input>
+      <input type="number" ng-model="question.score" placeholder="Score (1 to 10)"></input>
     </li>
   </ul>
 

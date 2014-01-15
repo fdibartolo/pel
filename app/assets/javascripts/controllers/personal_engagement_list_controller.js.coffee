@@ -2,13 +2,14 @@ angular.module('cems.controllers').controller 'PersonalEngagementListController'
   $scope.init = ->
     PersonalEngagementListService.new().then (pel) ->
       $scope.pel = pel
+      $scope.errors = null
 
   $scope.submit = ->
     PersonalEngagementListService.submit($scope.pel).then (result) ->
       if result.errors == undefined
         $location.path("/dashboard")
       else
-        alert result.errors
+        $scope.errors = result.errors
 
   $scope.cancel = ->
     $location.path("/dashboard")
