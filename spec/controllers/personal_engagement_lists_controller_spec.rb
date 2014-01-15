@@ -80,11 +80,19 @@ describe PersonalEngagementListsController do
           }.to change(PersonalEngagementList, :count).by(0)
         end
 
-        it "should return errors hash with given description" do
+        it "should return errors hash with given question error description" do
           post :create, payload, valid_session
           body = JSON.parse response.body
           body['errors'].count.should == 1
           body['errors'].should include 'Priority has already been taken'
+        end
+
+        it "should return errors hash with given pel error description" do
+          payload['questions'][1]['priority'] = 3
+          post :create, payload, valid_session
+          body = JSON.parse response.body
+          body['errors'].count.should == 1
+          body['errors'].should include 'Questions priority cannot be greater than 2'
         end
       end
 

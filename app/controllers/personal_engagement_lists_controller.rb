@@ -28,7 +28,10 @@ class PersonalEngagementListsController < ApplicationController
             raise ActiveRecord::RollbackException
           end
         end
-        @pel.save
+        unless @pel.save
+          @errors.concat(@pel.errors.full_messages).uniq
+          raise ActiveRecord::RollbackException
+        end
       end
     rescue Exception => e
       @pel.destroy
