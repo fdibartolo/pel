@@ -40,6 +40,6 @@ class PersonalEngagementListsController < ApplicationController
 
   private
   def personal_engagement_list_params
-    params.require(:questions).each {|q| q.keep_if {|k,v| %w[body priority score].include? k }}
+    params.require(:questions).each {|q| q.keep_if {|k,v| %w[body priority score comments].include? k }}
   end
 end

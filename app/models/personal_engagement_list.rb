@@ -13,7 +13,8 @@ class PersonalEngagementList < ActiveRecord::Base
         personal_engagement_list_id: self.id,
         body: question['body'],
         priority: question['priority'].to_i, 
-        score: question['score'].to_i
+        score: question['score'].to_i,
+        comments: question['comments']
       })
     end 
   end
