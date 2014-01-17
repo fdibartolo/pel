@@ -4,11 +4,11 @@ ruby '2.0.0'
 gem 'rails', '4.0.2'
 
 gem 'mysql2', '0.3.14'
-
 gem 'sass-rails', '4.0.1'
 gem 'uglifier', '2.4.0'
 gem 'coffee-rails', '4.0.1'
-gem 'jquery-rails'
+gem 'jquery-rails', '3.0.4'
+gem 'jquery-ui-rails', '4.1.1'
 gem 'jbuilder', '2.0.1'
 
 # authentication strategies ####

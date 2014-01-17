@@ -59,6 +59,8 @@ GEM
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    jquery-ui-rails (4.1.1)
+      railties (>= 3.1.0)
     json (1.8.1)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -137,7 +139,8 @@ DEPENDENCIES
   dummy-auth-rails!
   factory_girl_rails (= 4.3.0)
   jbuilder (= 2.0.1)
-  jquery-rails
+  jquery-rails (= 3.0.4)
+  jquery-ui-rails (= 4.1.1)
   mysql2 (= 0.3.14)
   rails (= 4.0.2)
   rspec-rails (= 2.14.1)
