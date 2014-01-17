@@ -1,14 +1,21 @@
 <div ng-cloak ng-init="init()">
   <h3>Create New Pel</h3>
 
-  <ul ng-show="errors != null" style="color:red;">
-    <li ng-repeat="error in errors">{{error}}</li>
+  <ul ng-show="errors != null" class="list-group no-bullet">
+    <li ng-repeat="error in errors">
+      <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>{{error}}</strong>
+      </div>
+    </li>
   </ul>
 
   <ul ui-sortable class="list-group" ng-model="pel.questions">
     <li ng-repeat="question in pel.questions | orderBy:priority" class="list-group-item draggable">
       <h4 class="list-group-item-heading">{{question.body}}</h4>
-      <span class="badge">{{question.score}}</span>
+      <span class="badge" ng-class="{redBadge: isRedBadge(question.score), yellowBadge: isYellowBadge(question.score), greenBadge: isGreenBadge(question.score)}" ng-show="isValidScore(question.score)">
+        {{question.score}}
+      </span>
       <p class="list-group-item-text">{{question.comments}}</p>
       <input type="number" ng-model="question.score" placeholder="Score (1 to 10)"></input><br>
       <input type="text" ng-model="question.comments" placeholder="Comments"></input>
@@ -18,4 +25,3 @@
   <button ng-click="submit()">Submit</button>
   <button ng-click="cancel()">Cancel</button>
 <div>
-

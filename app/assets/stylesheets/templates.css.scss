@@ -3,3 +3,20 @@
 .draggable {
   cursor: move
 }
+
+.redBadge {
+  background: red;
+}
+
+.yellowBadge {
+  color: black;
+  background: yellow;
+}
+
+.greenBadge {
+  background: green;
+}
+
+.no-bullet {
+  list-style-type: none;
+}
