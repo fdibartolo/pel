@@ -5,14 +5,17 @@
     <li ng-repeat="error in errors">{{error}}</li>
   </ul>
 
-  <ul>
-    <li ng-repeat="question in pel.questions">
-      <p>Area: {{question.body}}</p>
-      <input type="text" ng-model="question.priority" placeholder="Priority"></input>
-      <input type="number" ng-model="question.score" placeholder="Score (1 to 10)"></input>
+  <ul ui-sortable class="list-group" ng-model="pel.questions">
+    <li ng-repeat="question in pel.questions | orderBy:priority" class="list-group-item draggable">
+      <h4 class="list-group-item-heading">{{question.body}}</h4>
+      <span class="badge">{{question.score}}</span>
+      <p class="list-group-item-text">{{question.comments}}</p>
+      <input type="number" ng-model="question.score" placeholder="Score (1 to 10)"></input><br>
+      <input type="text" ng-model="question.comments" placeholder="Comments"></input>
     </li>
   </ul>
 
   <button ng-click="submit()">Submit</button>
   <button ng-click="cancel()">Cancel</button>
 <div>
+

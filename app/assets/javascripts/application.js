@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.sortable
 //= require lib/angular.min
 //= require lib/angular-route.min
 //= require lib/angular-resource.min

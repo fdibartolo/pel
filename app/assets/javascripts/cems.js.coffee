@@ -1,4 +1,4 @@
-app = angular.module('cems', ['ngRoute', 'cems.services', 'cems.controllers'])
+app = angular.module('cems', ['ngRoute', 'ui.sortable', 'cems.services', 'cems.controllers'])
 
 # Created here so controllers on separate files can be built on top of this one
 controllers = angular.module('cems.controllers', [])
