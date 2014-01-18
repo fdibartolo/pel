@@ -149,7 +149,7 @@ describe PersonalEngagementListsController do
           response.should be_success
         end
 
-        it "should return saved pel" do
+        it "should return corresponding id" do
           post :create, payload, valid_session
           body = JSON.parse response.body
           body['id'].should == PersonalEngagementList.last.id
