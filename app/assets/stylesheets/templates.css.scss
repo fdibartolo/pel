@@ -4,8 +4,8 @@
   cursor: move
 }
 
-.floatRight {
-  float: right;
+.pull-up {
+  margin-top: -25px;
 }
 
 .redBadge {
@@ -13,10 +13,14 @@
 }
 
 .yellowBadge {
-  color: black;
+  color: gray;
   background: yellow;
 }
 
 .greenBadge {
   background: green;
+}
+
+.btn-question-close {
+  margin-top: 4px;
 }

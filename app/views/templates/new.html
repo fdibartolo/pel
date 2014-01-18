@@ -5,7 +5,7 @@
     <div class="panel-heading">Tips</div>
     <div class="panel-body">
       1. Order the questions by dragging them up and down (top is the most important) <br>
-      2. Click on a question to enter the corresponding score
+      2. Click on question title to enter the corresponding score and comments
     </div>
   </div>
 
@@ -22,7 +22,7 @@
     <li ng-repeat="question in pel.questions | orderBy:priority" class="list-group-item draggable">
       <h4 class="list-group-item-heading" ng-click="editing = !editing">{{question.body}}</h4>
       <div ng-hide="editing">
-        <span class="badge floatRight" ng-class="{redBadge: isRedBadge(question.score), yellowBadge: isYellowBadge(question.score), greenBadge: isGreenBadge(question.score)}" ng-show="isValidScore(question.score)">
+        <span class="badge pull-right pull-up" ng-class="{redBadge: isRedBadge(question.score), yellowBadge: isYellowBadge(question.score), greenBadge: isGreenBadge(question.score)}" ng-show="isValidScore(question.score)">
           {{question.score}}
         </span>
         <p class="list-group-item-text">{{question.comments}}</p>
@@ -32,7 +32,9 @@
         </input><br>
         <textarea row="3" class="form-control" ng-model="question.comments" placeholder="Comments">
         </textarea>
-        <button type="button" class="close" ng-click="editing = false">&times;</button><br>
+        <button type="button" class="btn btn-success btn-xs pull-right btn-question-close" ng-click="editing = false">Ok
+        </button><br>
+        <!-- <button type="button" class="close" ng-click="editing = false">&times;</button><br> -->
       </div>
     </li>
   </ul>
