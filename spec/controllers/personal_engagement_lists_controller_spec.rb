@@ -46,7 +46,7 @@ describe PersonalEngagementListsController do
         @body = JSON.parse response.body
       end
 
-      it "response should be success" do
+      it "should be success" do
         response.should be_success
       end
 
@@ -54,6 +54,48 @@ describe PersonalEngagementListsController do
         @body['questions'].count.should == 2
         @body['questions'][0]['body'].should == @first_template_question.body
         @body['questions'][1]['body'].should == @second_template_question.body
+      end
+    end
+
+    context "requesting a pel to be edited" do
+      before :each do
+        @pel = FactoryGirl.create :personal_engagement_list
+        @first_question = FactoryGirl.build :question
+        @pel.questions << @first_question
+      end
+
+      context "with invalid params" do
+        it "should include error if id is not provided" do
+          get :edit, { format: :json }, valid_session
+          body = JSON.parse response.body
+          body['errors'].count.should == 1
+          body['errors'].should include 'Param <id> must be provided'
+        end
+
+        it "should include error if id is invalid" do
+          invalid_id = @pel.id + 1
+          get :edit, { format: :json, id: invalid_id }, valid_session
+          body = JSON.parse response.body
+          body['errors'].count.should == 1
+          body['errors'].should include "Cannot find PEL with id=#{invalid_id}"
+        end
+      end
+
+      context "with valid params" do
+        before :each do
+          get :edit, { format: :json, id: @pel.to_param }, valid_session
+          @body = JSON.parse response.body
+        end
+
+        it "should be success" do
+          response.should be_success
+        end
+
+        it "should return pel as json" do
+          @body['id'].should == @pel.id
+          @body['questions'].count.should == 1
+          @body['questions'][0]['body'].should == @first_question.body
+        end
       end
     end
 

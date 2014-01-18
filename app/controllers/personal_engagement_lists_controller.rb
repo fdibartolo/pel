@@ -12,6 +12,16 @@ class PersonalEngagementListsController < ApplicationController
     end
   end
 
+  def edit
+    @errors = []
+    if params[:id]
+      @pel = PersonalEngagementList.find_by(id: params[:id])
+      @errors << "Cannot find PEL with id=#{params[:id]}" unless @pel
+    else
+      @errors << "Param <id> must be provided"
+    end
+  end
+
   def create
     @pel = PersonalEngagementList.create!(user: current_user) if current_user
     return head :bad_request unless @pel
