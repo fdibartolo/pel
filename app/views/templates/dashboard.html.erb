@@ -1,15 +1,18 @@
 <div ng-cloak ng-init="init()">
   <h3>Welcome to your Dashboard</h3>
-  <p>My PELs...</p>
 
-  <ul>
-    <li ng-repeat="pel in pels">
-      <p>{{pel.id}} - (Created Date: {{pel.created_at}})</p>
-      <ul><li ng-repeat="question in pel.questions">
-        <p>Area: {{question.body}} - Priority: {{question.priority}} - Score: {{question.score}}<p>
-      </li></ul>
+  <ul class="list-group">
+    <li ng-repeat="pel in pels | orderBy:'-created_at'" class="list-group-item">
+      <h5>
+        Created Date: {{pel.created_at | date:'mediumDate'}}
+        <small>(id: {{pel.id}})</small>
+        <span class="label label-success" ng-show="isNew(pel)">new!</span>
+      </h5>
+      <ol><li ng-repeat="question in pel.questions | orderBy:priority">
+        <p>{{question.body}} (Score: {{question.score}})<p>
+      </li></ol>
     </li>
   </ul>
 
-  <button class="btn btn-default" ng-click="new()">Create New PEL</button>
+  <button class="btn btn-default pull-right" ng-click="new()">Create New Personal Engagement List</button>
 <div>
