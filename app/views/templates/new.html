@@ -1,7 +1,15 @@
 <div ng-cloak ng-init="init()">
   <h3>Create New Personal Engagement List</h3>
 
-  <ul ng-show="errors != null" class="list-group no-bullet">
+  <div class="panel panel-success">
+    <div class="panel-heading">Tips</div>
+    <div class="panel-body">
+      1. Order the questions by dragging them up and down (top is the most important) <br>
+      2. Click on a question to enter the corresponding score
+    </div>
+  </div>
+
+  <ul ng-show="errors != null" class="list-group list-unstyled">
     <li ng-repeat="error in errors">
       <div class="alert alert-danger alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -12,16 +20,23 @@
 
   <ul ui-sortable class="list-group" ng-model="pel.questions">
     <li ng-repeat="question in pel.questions | orderBy:priority" class="list-group-item draggable">
-      <h4 class="list-group-item-heading">{{question.body}}</h4>
-      <span class="badge" ng-class="{redBadge: isRedBadge(question.score), yellowBadge: isYellowBadge(question.score), greenBadge: isGreenBadge(question.score)}" ng-show="isValidScore(question.score)">
-        {{question.score}}
-      </span>
-      <p class="list-group-item-text">{{question.comments}}</p>
-      <input type="number" ng-model="question.score" placeholder="Score (1 to 10)"></input><br>
-      <input type="text" ng-model="question.comments" placeholder="Comments"></input>
+      <h4 class="list-group-item-heading" ng-click="editing = !editing">{{question.body}}</h4>
+      <div ng-hide="editing">
+        <span class="badge floatRight" ng-class="{redBadge: isRedBadge(question.score), yellowBadge: isYellowBadge(question.score), greenBadge: isGreenBadge(question.score)}" ng-show="isValidScore(question.score)">
+          {{question.score}}
+        </span>
+        <p class="list-group-item-text">{{question.comments}}</p>
+      </div>
+      <div ng-show="editing">
+        <input type="number" class="form-control"ng-model="question.score" placeholder="Score (1 to 10)">
+        </input><br>
+        <textarea row="3" class="form-control" ng-model="question.comments" placeholder="Comments">
+        </textarea>
+        <button type="button" class="close" ng-click="editing = false">&times;</button><br>
+      </div>
     </li>
   </ul>
 
-  <button ng-click="submit()">Submit</button>
-  <button ng-click="cancel()">Cancel</button>
+  <button class="btn btn-success" ng-click="submit()">Submit</button>
+  <button class="btn btn-default" ng-click="cancel()">Cancel</button>
 <div>

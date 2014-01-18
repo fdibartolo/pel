@@ -4,6 +4,10 @@
   cursor: move
 }
 
+.floatRight {
+  float: right;
+}
+
 .redBadge {
   background: red;
 }
@@ -15,8 +19,4 @@
 
 .greenBadge {
   background: green;
-}
-
-.no-bullet {
-  list-style-type: none;
 }
