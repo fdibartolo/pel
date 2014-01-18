@@ -106,9 +106,9 @@ describe PersonalEngagementListsController do
           {'body' => 'Q2', 'priority' => 1, 'score' => 7}
         ]} }
 
-        it "should return 400 if no current_user" do
+        it "should return 401 if no current_user" do
           post :create, payload
-          response.status.should == 400
+          response.status.should == 401
         end
 
         # it "should respond with code 422 ('Unprocessable Entity')" do
@@ -144,7 +144,7 @@ describe PersonalEngagementListsController do
           {'body' => 'Q2', 'priority' => 2, 'score' => 7}
         ]} }
 
-        it "response should be success" do
+        it "should be success" do
           post :create, payload, valid_session
           response.should be_success
         end
@@ -153,6 +153,64 @@ describe PersonalEngagementListsController do
           post :create, payload, valid_session
           body = JSON.parse response.body
           body['id'].should == PersonalEngagementList.last.id
+        end
+      end
+    end
+
+    context "updating a pel" do
+      context "with invalid params" do
+        before :each do
+          @pel = FactoryGirl.create :personal_engagement_list
+          first_question = FactoryGirl.build :question
+          @pel.questions << first_question
+
+          @payload = {'id' => @pel.id, 'questions' => [
+            {'body' => first_question.body, 'priority' => 1, 'score' => 0}
+          ]}
+        end
+
+        it "should return 401 if no current_user" do
+          patch :update, @payload
+          response.status.should == 401
+        end
+
+        it "should include error if id is invalid" do
+          @payload['id'] = @pel.id + 1
+          patch :update, @payload, valid_session
+          body = JSON.parse response.body
+          body['errors'].count.should == 1
+          body['errors'].should include "Cannot find PEL with id=#{@payload['id']}"
+        end
+
+        it "should return errors hash with given question error description" do
+          patch :update, @payload, valid_session
+          body = JSON.parse response.body
+          body['errors'].count.should == 1
+          body['errors'].should include 'Score must be greater than 0'
+        end
+      end
+
+      context "with valid params" do
+        before :each do
+          @pel = FactoryGirl.create :personal_engagement_list
+          first_question = FactoryGirl.build :question
+          @pel.questions << first_question
+
+          @payload = {'id' => @pel.id, 'questions' => [
+            {'body' => first_question.body, 'priority' => 1, 'score' => 10}
+          ]}
+        end
+
+        it "should be success" do
+          patch :update, @payload, valid_session
+          response.should be_success
+        end
+
+        it "should return updated PEL" do
+          patch :update, @payload, valid_session
+          body = JSON.parse response.body
+          body['questions'][0]['score'].should == 10
+          body['questions'][0]['priority'].should == 1
         end
       end
     end

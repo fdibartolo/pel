@@ -18,4 +18,13 @@ class PersonalEngagementList < ActiveRecord::Base
       })
     end 
   end
+
+  def update_questions_from params
+    params.each do |question|
+      q = questions.select {|k| k.body == question['body']}.first
+      q.priority = question['priority'].to_i
+      q.score = question['score'].to_i
+      q.comments= question['comments']
+    end 
+  end
 end

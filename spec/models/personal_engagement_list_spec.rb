@@ -51,4 +51,17 @@ describe PersonalEngagementList do
     pel.questions.first.body.should == 'Q1'
     pel.questions.last.score.should == 7
   end
+
+  it "should update questions from params" do
+    params = {'questions' => [
+      {'body' => 'Q1', 'score' => 4, 'priority' => 1, 'comments' => 'lets go'}
+    ]}
+
+    pel = FactoryGirl.create :personal_engagement_list
+    pel.questions << FactoryGirl.build(:question, body: 'Q1', score: 1, comments: 'hey ho')
+    pel.update_questions_from params['questions']
+    pel.questions.first.priority.should == 1
+    pel.questions.first.score.should == 4
+    pel.questions.first.comments.should == 'lets go'
+  end
 end
