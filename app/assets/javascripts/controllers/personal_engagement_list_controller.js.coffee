@@ -1,5 +1,5 @@
 angular.module('cems.controllers').controller 'PersonalEngagementListController', 
-['$scope', '$location', '$routeParams', 'PersonalEngagementListService', ($scope, $location, $routeParams, PersonalEngagementListService) ->
+['$scope', '$location', '$routeParams', '$filter', 'PersonalEngagementListService', ($scope, $location, $routeParams, $filter, PersonalEngagementListService) ->
 
   $scope.init = ->
     $scope.errors = null
@@ -9,6 +9,8 @@ angular.module('cems.controllers').controller 'PersonalEngagementListController'
         $scope.pel = pel
     else
       PersonalEngagementListService.getById(pelId).then (pel) ->
+        # HACK: moving this filtering to the view introduces a bug upon submiting pel
+        pel.questions = $filter('orderBy')(pel.questions, '-priority', true)
         $scope.pel = pel
 
   $scope.submit = ->

@@ -19,7 +19,7 @@
   </ul>
 
   <ul ui-sortable class="list-group" ng-model="pel.questions">
-    <li ng-repeat="question in pel.questions | orderBy:priority" class="list-group-item draggable">
+    <li ng-repeat="question in pel.questions" class="list-group-item draggable">
       <h4 class="list-group-item-heading" ng-click="editing = !editing">{{question.body}}</h4>
       <div ng-hide="editing">
         <span class="badge pull-right pull-up" ng-class="{redBadge: isRedBadge(question.score), yellowBadge: isYellowBadge(question.score), greenBadge: isGreenBadge(question.score)}" ng-show="isValidScore(question.score)">
