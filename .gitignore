@@ -18,5 +18,6 @@
 # Local rvm gemset
 .rvmrc
 
-# Rspec CI reports
+# Rspec CI unit and coverage reports
 spec/reports/
+coverage/

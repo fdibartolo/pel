@@ -19,7 +19,12 @@ gem 'dummy-auth-rails',
 group :development, :test do
   gem 'rspec-rails', '2.14.1'
   gem 'factory_girl_rails', '4.3.0'
+end
+
+group :test do
   gem 'ci_reporter', '1.9.1'
+  gem 'simplecov', '0.8.2', :require => false
+  gem 'simplecov-rcov', '0.2.3', :require => false
 end
 
 group :doc do
