@@ -16,5 +16,9 @@ app.config ['$httpProvider', '$routeProvider', '$locationProvider', ($httpProvid
     templateUrl: '/templates/new.html'
     controller: 'PersonalEngagementListController'
 
+  $routeProvider.when '/edit/:id',
+    templateUrl: '/templates/new.html'
+    controller: 'PersonalEngagementListController'
+
   $routeProvider.otherwise redirectTo: '/dashboard'
 ]

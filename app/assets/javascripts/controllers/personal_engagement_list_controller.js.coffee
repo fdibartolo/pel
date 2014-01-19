@@ -1,8 +1,15 @@
-angular.module('cems.controllers').controller 'PersonalEngagementListController', ['$scope', '$location', 'PersonalEngagementListService', ($scope, $location, PersonalEngagementListService) ->
+angular.module('cems.controllers').controller 'PersonalEngagementListController', 
+['$scope', '$location', '$routeParams', 'PersonalEngagementListService', ($scope, $location, $routeParams, PersonalEngagementListService) ->
+
   $scope.init = ->
-    PersonalEngagementListService.new().then (pel) ->
-      $scope.pel = pel
-      $scope.errors = null
+    $scope.errors = null
+    pelId = $routeParams.id
+    if pelId == undefined
+      PersonalEngagementListService.new().then (pel) ->
+        $scope.pel = pel
+    else
+      PersonalEngagementListService.getById(pelId).then (pel) ->
+        $scope.pel = pel
 
   $scope.submit = ->
     updatePriorities()

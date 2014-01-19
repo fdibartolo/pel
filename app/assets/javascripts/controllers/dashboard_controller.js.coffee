@@ -8,6 +8,9 @@ angular.module('cems.controllers').controller 'DashboardController',
   $scope.new = ->
     $location.path("/new")
 
+  $scope.edit = (id) ->
+    $location.path("/edit/" + id)
+
   $scope.isNew = (pel) ->
     createdAt = new Date(Date.parse(pel.created_at))
     new Date().toDateString() == createdAt.toDateString()

@@ -8,11 +8,18 @@
         <small>(id: {{pel.id}})</small>
         <span class="label label-success" ng-show="isNew(pel)">new!</span>
       </h5>
-      <ol><li ng-repeat="question in pel.questions | orderBy:priority">
+      <ol><li ng-repeat="question in pel.questions | orderBy:'priority'">
         <p>{{question.body}} (Score: {{question.score}})<p>
       </li></ol>
+  
+      <div class="btn-group btn-group-xs pull-right">
+        <button class="btn btn-default" ng-click="edit(pel.id)">Edit</button>
+        <button class="btn btn-default disabled">Make a Copy</button>
+      </div><br>
     </li>
   </ul>
 
-  <button class="btn btn-default pull-right" ng-click="new()">Create New Personal Engagement List</button>
+  <button class="btn btn-default pull-right" ng-click="new()">
+    Create New Personal Engagement List
+  </button>
 <div>

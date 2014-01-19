@@ -9,7 +9,7 @@ angular.module('cems.services', []).factory 'PersonalEngagementListService', ['$
 
     deferred.promise
 
-  new_pel = ->
+  newPel = ->
     deferred = $q.defer()
     $http.get('/new').success((data, status) ->
       deferred.resolve(data)
@@ -19,9 +19,27 @@ angular.module('cems.services', []).factory 'PersonalEngagementListService', ['$
 
     deferred.promise
 
+  getById = (id) ->
+    deferred = $q.defer()
+    $http.get('/edit/' + id).success((data, status) ->
+      deferred.resolve(data)
+    ).error (data, status) ->
+      deferred.reject()
+      alert "Unable to get PEL"
+
+    deferred.promise
+
   submit = (pel) ->
     deferred = $q.defer()
-    $http.post('/create', pel).success((data, status) ->
+
+    if pel.id == undefined
+      method = 'POST'
+      url = '/create'
+    else
+      method = 'PUT'
+      url = '/lists/' + pel.id
+
+    $http({method: method, url: url, data: pel}).success((data, status) ->
       deferred.resolve(data)
     ).error (data, status) ->
       deferred.reject()
@@ -30,6 +48,7 @@ angular.module('cems.services', []).factory 'PersonalEngagementListService', ['$
     deferred.promise
 
   all: all,
-  new: new_pel,
+  new: newPel,
+  getById: getById,
   submit: submit
 ]
