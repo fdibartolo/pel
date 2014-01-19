@@ -65,13 +65,6 @@ describe PersonalEngagementListsController do
       end
 
       context "with invalid params" do
-        it "should include error if id is not provided" do
-          get :edit, { format: :json }, valid_session
-          body = JSON.parse response.body
-          body['errors'].count.should == 1
-          body['errors'].should include 'Param <id> must be provided'
-        end
-
         it "should include error if id is invalid" do
           invalid_id = @pel.id + 1
           get :edit, { format: :json, id: invalid_id }, valid_session

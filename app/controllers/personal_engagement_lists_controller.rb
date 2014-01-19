@@ -15,12 +15,8 @@ class PersonalEngagementListsController < ApplicationController
 
   def edit
     @errors = []
-    if params[:id]
-      @pel = PersonalEngagementList.find_by(id: params[:id])
-      @errors << "Cannot find PEL with id=#{params[:id]}" unless @pel
-    else
-      @errors << "Param <id> must be provided"
-    end
+    @pel = PersonalEngagementList.find_by(id: params[:id]) if params[:id]
+    @errors << "Cannot find PEL with id=#{params[:id]}" unless @pel
   end
 
   def create
@@ -37,20 +33,16 @@ class PersonalEngagementListsController < ApplicationController
 
   def update
     @errors = []
-    if params[:id]
-      @pel = PersonalEngagementList.find_by(id: params[:id])
-      if @pel
-        @pel.update_questions_from personal_engagement_list_params
+    @pel = PersonalEngagementList.find_by(id: params[:id]) if params[:id]
+    if @pel
+      @pel.update_questions_from personal_engagement_list_params
 
-        begin
-          cascade_save_in_transaction
-        rescue
-        end
-      else
-        @errors << "Cannot find PEL with id=#{params[:id]}"
+      begin
+        cascade_save_in_transaction
+      rescue
       end
     else
-      @errors << "Param <id> must be provided"
+      @errors << "Cannot find PEL with id=#{params[:id]}"
     end
   end
 
