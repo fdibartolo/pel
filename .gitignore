@@ -15,4 +15,8 @@
 /log/*.log
 /tmp
 
+# Local rvm gemset
 .rvmrc
+
+# Rspec CI reports
+spec/reports/
