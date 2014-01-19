@@ -186,11 +186,14 @@ describe PersonalEngagementListsController do
       context "with valid params" do
         before :each do
           @pel = FactoryGirl.create :personal_engagement_list
-          first_question = FactoryGirl.build :question
+          first_question = FactoryGirl.build :question, body: 'Q1', priority: 1, score: 7
+          second_question = FactoryGirl.build :question, body: 'Q2', priority: 2, score: 8
           @pel.questions << first_question
+          @pel.questions << second_question
 
           @payload = {'id' => @pel.id, 'questions' => [
-            {'body' => first_question.body, 'priority' => 1, 'score' => 10}
+            {'body' => first_question.body, 'priority' => 2, 'score' => 10},
+            {'body' => second_question.body, 'priority' => 1, 'score' => 8}
           ]}
         end
 
@@ -203,7 +206,9 @@ describe PersonalEngagementListsController do
           patch :update, @payload, valid_session
           body = JSON.parse response.body
           body['questions'][0]['score'].should == 10
-          body['questions'][0]['priority'].should == 1
+          body['questions'][0]['priority'].should == 2
+          body['questions'][1]['score'].should == 8
+          body['questions'][1]['priority'].should == 1
         end
       end
     end

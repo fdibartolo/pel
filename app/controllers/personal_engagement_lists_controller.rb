@@ -35,6 +35,7 @@ class PersonalEngagementListsController < ApplicationController
     @errors = []
     @pel = PersonalEngagementList.find_by(id: params[:id]) if params[:id]
     if @pel
+      @pel.reset_priorities
       @pel.update_questions_from personal_engagement_list_params
 
       begin

@@ -27,4 +27,11 @@ class PersonalEngagementList < ActiveRecord::Base
       q.comments= question['comments']
     end 
   end
+
+  def reset_priorities
+    questions.each do |question|
+      question.priority = nil
+      question.save(validate: false)
+    end
+  end
 end

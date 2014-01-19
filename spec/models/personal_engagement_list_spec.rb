@@ -64,4 +64,16 @@ describe PersonalEngagementList do
     pel.questions.first.score.should == 4
     pel.questions.first.comments.should == 'lets go'
   end
+
+  it "should be able to reset question priorities" do
+    pel = FactoryGirl.create :personal_engagement_list
+    pel.questions << FactoryGirl.build(:question, body: 'Q1', priority: 1)
+    pel.questions << FactoryGirl.build(:question, body: 'Q2', priority: 2)
+
+    pel.save!
+    pel.reset_priorities
+    pel.reload
+    pel.questions.first.priority.should be_nil
+    pel.questions.last.priority.should be_nil
+  end
 end
