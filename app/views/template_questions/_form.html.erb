@@ -1,21 +1,32 @@
-<%= form_for(@template_question) do |f| %>
-  <% if @template_question.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@template_question.errors.count, "error") %> prohibited this template_question from being saved:</h2>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <%= form_for(@template_question) do |f| %>
+    <% if @template_question.errors.any? %>
+      <div class="alert alert-danger">
+        <h5>
+          <%= pluralize(@template_question.errors.count, "error") %> prohibited this question from being saved:
+        </h5>
 
-      <ul>
-      <% @template_question.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+        <ul>
+          <% @template_question.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul><br>
+      </div>
+    <% end %>
+
+    <div class="panel panel-default col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="panel-body">
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">Body</span>
+          <%= f.text_field :body, class: "form-control", placeholder: "goes here..." %>
+        </div><br>
+
+        <div class="pull-right">
+          <%= f.submit 'Create', class: "btn btn-sm btn-success" %>
+          <%= link_to 'Cancel', template_questions_path, class: "btn btn-sm btn-default" %>
+        </div>
+      </div>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :body %><br>
-    <%= f.text_field :body %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
