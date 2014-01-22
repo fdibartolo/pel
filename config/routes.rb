@@ -12,6 +12,7 @@ Cems::Application.routes.draw do
   get '/templates/:path.html' => 'templates#template', :constraints => { :path => /.+/ }
 
   get '/signout' => "application#signout"
+  get '/health'   => "application#health"
 
   root 'home#index'
 end
