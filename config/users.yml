@@ -7,3 +7,6 @@ users:
 
   heraldo.gimenez:
     groups: ""
+
+  user1:
+    groups: ""

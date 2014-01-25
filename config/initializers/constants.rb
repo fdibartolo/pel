@@ -1,0 +1,2 @@
+# Roles
+AdminRole = 'CEMS.Administrator'
