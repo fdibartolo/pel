@@ -14,5 +14,9 @@ FactoryGirl.define do
 
   factory :template_question do
     body "some question"
-  end  
+  end
+
+  factory :role do
+    name "Admin"
+  end
 end

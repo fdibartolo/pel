@@ -6,13 +6,26 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-def user_exists? eid
-  User.find_by(enterprise_id: eid)
+def role_exists? name
+  Role.find_by(name: name)
 end
 
+Role.all.each {|r| r.users.destroy_all}
+
 %W[
-  fernando.di.bartolo
-  heraldo.gimenez
-].each do |enterprise_id|
-  User.create! enterprise_id: enterprise_id unless user_exists? enterprise_id
+  CEMS.Administrator
+].each do |name|
+  Role.create! name: name unless role_exists? name
+end
+
+{
+  'CEMS.Administrator' => %w[
+    fernando.di.bartolo 
+    heraldo.gimenez
+  ]
+}.each do |role_name, enterprise_ids|
+  enterprise_ids.each do |enterprise_id|
+    user = User.find_by(enterprise_id: enterprise_id) || User.new(enterprise_id: enterprise_id)
+    user.roles << Role.find_by(name: role_name)
+  end
 end
