@@ -18,6 +18,33 @@ describe "Ability" do
     it "should not be able to manage personal engagement lists that he doesnt own" do
       @ability.should_not be_able_to(:manage, PersonalEngagementList.new(user_id: @user.id + 1))
     end
+
+    it "should not be able to manage template questions" do
+      @ability.should_not be_able_to(:manage, TemplateQuestion.new)
+    end
+
+    it "should not be able to manage requests" do
+      @ability.should_not be_able_to(:manage, Request.new)
+    end
+  end
+
+  describe "Requestor" do
+    before :each do
+      @user.roles << FactoryGirl.build(:role, name: RequestorRole)
+      @ability = Ability.new(@user)
+    end
+
+    it "should be able to manage requests that he owns" do
+      @ability.should be_able_to(:manage, Request.new(owner_id: @user.id))
+    end
+
+    it "should not be able to manage requests that he doesnt own" do
+      @ability.should_not be_able_to(:manage, Request.new(owner_id: @user.id + 1))
+    end
+
+    it "should not be able to manage template questions" do
+      @ability.should_not be_able_to(:manage, TemplateQuestion.new)
+    end
   end
 
   describe "Administrator" do
@@ -32,6 +59,10 @@ describe "Ability" do
 
     it "should be able to manage personal engagement lists" do
       @ability.should be_able_to(:manage, PersonalEngagementList.new)
+    end
+
+    it "should be able to manage requests" do
+      @ability.should be_able_to(:manage, Request.new)
     end
   end
 end

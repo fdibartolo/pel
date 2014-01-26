@@ -11,7 +11,8 @@ def role_exists? name
 end
 
 [
-  AdminRole
+  AdminRole,
+  RequestorRole
 ].each do |name|
   Role.create! name: name unless role_exists? name
 end
@@ -20,6 +21,10 @@ Role.all.each {|r| r.users.destroy_all}
 
 {
   AdminRole => %w[
+    fernando.di.bartolo 
+    heraldo.gimenez
+  ],
+  RequestorRole => %w[
     fernando.di.bartolo 
     heraldo.gimenez
   ],

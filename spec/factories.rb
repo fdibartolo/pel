@@ -19,4 +19,8 @@ FactoryGirl.define do
   factory :role do
     name "Admin"
   end
+
+  factory :request do
+    owner_id 1
+  end
 end
