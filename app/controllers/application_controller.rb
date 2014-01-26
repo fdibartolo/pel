@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
   before_action :check_authentication, except: [:health] unless Rails.env.test?
   before_action :set_user_in_session
 
+  rescue_from CanCan::AccessDenied do |exception|
+    render file: "#{Rails.root}/public/403", format: :html, :status => 403
+  end
+
   def set_user_in_session
     unless session[:enterprise_id] or @opensso_user.nil?
       session[:enterprise_id] = @opensso_user['uid'].first.split("@").first if @opensso_user['uid']
@@ -15,6 +19,7 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find_by(enterprise_id: session[:enterprise_id]) if session[:enterprise_id]
   end
+  helper_method :current_user
 
   def signout
     session[:enterprise_id] = nil
