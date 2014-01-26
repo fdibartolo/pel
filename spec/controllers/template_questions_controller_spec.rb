@@ -1,9 +1,17 @@
 require 'spec_helper'
 
 describe TemplateQuestionsController do
+  before :each do
+    @user = FactoryGirl.create :user
+    @user.roles << FactoryGirl.create(:role, name: AdminRole)
+  end
+
+  # def valid_session
+  #   { enterprise_id: @user.enterprise_id }
+  # end
 
   let(:valid_attributes) { { "body" => "Some question" } }
-  let(:valid_session) { {} }
+  let(:valid_session) { { enterprise_id: @user.enterprise_id } }
 
   describe "GET index" do
     it "assigns all template_questions as @template_questions" do

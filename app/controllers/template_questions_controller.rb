@@ -1,5 +1,7 @@
 class TemplateQuestionsController < ApplicationController
   before_action :set_template_question, only: [:edit, :update, :destroy]
+  before_action :create_template_question, only: :create # Workaround to a known bug of CanCan and StrongParams
+  load_and_authorize_resource
 
   def index
     @template_questions = TemplateQuestion.all
@@ -13,8 +15,6 @@ class TemplateQuestionsController < ApplicationController
   end
 
   def create
-    @template_question = TemplateQuestion.new(template_question_params)
-
     respond_to do |format|
       if @template_question.save
         format.html { redirect_to template_questions_path, notice: 'Template question was successfully created.' }
@@ -42,6 +42,10 @@ class TemplateQuestionsController < ApplicationController
   end
 
   private
+    def create_template_question
+      @template_question = TemplateQuestion.new(template_question_params)
+    end
+
     def set_template_question
       @template_question = TemplateQuestion.find(params[:id])
     end
