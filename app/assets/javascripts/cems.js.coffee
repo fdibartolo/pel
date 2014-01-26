@@ -3,10 +3,9 @@ app = angular.module('cems', ['ngRoute', 'ui.sortable', 'cems.services', 'cems.c
 # Created here so controllers on separate files can be built on top of this one
 controllers = angular.module('cems.controllers', [])
 
-app.config ['$httpProvider', '$routeProvider', '$locationProvider', ($httpProvider, $routeProvider, $locationProvider) ->
+app.config ['$httpProvider', '$routeProvider', ($httpProvider, $routeProvider) ->
   authToken = $("meta[name=\"csrf-token\"]").attr("content")
   $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = authToken  
-  $locationProvider.html5Mode true
   
   $routeProvider.when '/dashboard',
     templateUrl: '/templates/dashboard.html'
