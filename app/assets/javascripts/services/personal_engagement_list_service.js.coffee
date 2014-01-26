@@ -1,7 +1,7 @@
 angular.module('cems.services', []).factory 'PersonalEngagementListService', ['$q', '$http', ($q, $http) ->
   all = ->
     deferred = $q.defer()
-    $http.get('/lists').success((data, status) ->
+    $http.get('/api/personal_engagement_lists/lists').success((data, status) ->
       deferred.resolve(data)
     ).error (data, status) ->
       deferred.reject()
@@ -11,7 +11,7 @@ angular.module('cems.services', []).factory 'PersonalEngagementListService', ['$
 
   newPel = ->
     deferred = $q.defer()
-    $http.get('/new').success((data, status) ->
+    $http.get('/api/personal_engagement_lists/new').success((data, status) ->
       deferred.resolve(data)
     ).error (data, status) ->
       deferred.reject()
@@ -21,7 +21,7 @@ angular.module('cems.services', []).factory 'PersonalEngagementListService', ['$
 
   getById = (id) ->
     deferred = $q.defer()
-    $http.get('/edit/' + id).success((data, status) ->
+    $http.get('/api/personal_engagement_lists/' + id + '/edit').success((data, status) ->
       deferred.resolve(data)
     ).error (data, status) ->
       deferred.reject()
@@ -34,10 +34,10 @@ angular.module('cems.services', []).factory 'PersonalEngagementListService', ['$
 
     if pel.id == undefined
       method = 'POST'
-      url = '/create'
+      url = '/api/personal_engagement_lists'
     else
       method = 'PUT'
-      url = '/lists/' + pel.id
+      url = '/api/personal_engagement_lists/' + pel.id
 
     $http({method: method, url: url, data: pel}).success((data, status) ->
       deferred.resolve(data)

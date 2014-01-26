@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PersonalEngagementListsController do
+describe Api::PersonalEngagementListsController do
   context "for current user" do
     def valid_session
       { enterprise_id: user.enterprise_id }
