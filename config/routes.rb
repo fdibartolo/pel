@@ -5,6 +5,8 @@ Cems::Application.routes.draw do
     resources :personal_engagement_lists, only: [:new, :create, :edit, :update] do
       get '/lists' => 'personal_engagement_lists#pels_for_current_user', on: :collection
     end
+
+    resources :requests, only: [:create]
   end
 
   get '/dashboard' => 'home#index'

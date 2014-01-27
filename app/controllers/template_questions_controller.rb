@@ -42,15 +42,15 @@ class TemplateQuestionsController < ApplicationController
   end
 
   private
-    def create_template_question
-      @template_question = TemplateQuestion.new(template_question_params)
-    end
+  def create_template_question
+    @template_question = TemplateQuestion.new(template_question_params)
+  end
 
-    def set_template_question
-      @template_question = TemplateQuestion.find(params[:id])
-    end
+  def set_template_question
+    @template_question = TemplateQuestion.find(params[:id])
+  end
 
-    def template_question_params
-      params.require(:template_question).permit(:body)
-    end
+  def template_question_params
+    params.require(:template_question).permit(:body)
+  end
 end
