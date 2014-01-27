@@ -6,10 +6,6 @@ describe TemplateQuestionsController do
     @user.roles << FactoryGirl.create(:role, name: AdminRole)
   end
 
-  # def valid_session
-  #   { enterprise_id: @user.enterprise_id }
-  # end
-
   let(:valid_attributes) { { "body" => "Some question" } }
   let(:valid_session) { { enterprise_id: @user.enterprise_id } }
 

@@ -15,16 +15,16 @@ describe "Ability" do
       @ability.should be_able_to(:manage, PersonalEngagementList.new(user_id: @user.id))
     end
 
-    it "should not be able to manage personal engagement lists that he doesnt own" do
-      @ability.should_not be_able_to(:manage, PersonalEngagementList.new(user_id: @user.id + 1))
-    end
-
-    it "should not be able to manage template questions" do
-      @ability.should_not be_able_to(:manage, TemplateQuestion.new)
-    end
-
-    it "should not be able to manage requests" do
-      @ability.should_not be_able_to(:manage, Request.new)
+    describe "should not be able to manage" do
+      {
+        "personal engagement lists that he doesnt own" => "PersonalEngagementList.new(user_id: @user.id + 1)",
+        "template questions" => "TemplateQuestion.new",
+        "requests" => "Request.new"
+      }.each do |title, model|
+        it title do
+          @ability.should_not be_able_to(:manage, eval(model))
+        end
+      end
     end
   end
 
@@ -38,12 +38,15 @@ describe "Ability" do
       @ability.should be_able_to(:manage, Request.new(owner_id: @user.id))
     end
 
-    it "should not be able to manage requests that he doesnt own" do
-      @ability.should_not be_able_to(:manage, Request.new(owner_id: @user.id + 1))
-    end
-
-    it "should not be able to manage template questions" do
-      @ability.should_not be_able_to(:manage, TemplateQuestion.new)
+    describe "should not be able to manage" do
+      {
+        "requests that he doesnt own" => "Request.new(owner_id: @user.id + 1)",
+        "template questions" => "TemplateQuestion.new"
+      }.each do |title, model|
+        it title do
+          @ability.should_not be_able_to(:manage, eval(model))
+        end
+      end
     end
   end
 
@@ -53,16 +56,16 @@ describe "Ability" do
       @ability = Ability.new(@user)
     end
 
-    it "should be able to manage template questions" do
-      @ability.should be_able_to(:manage, TemplateQuestion.new)
-    end
-
-    it "should be able to manage personal engagement lists" do
-      @ability.should be_able_to(:manage, PersonalEngagementList.new)
-    end
-
-    it "should be able to manage requests" do
-      @ability.should be_able_to(:manage, Request.new)
+    describe "should be able to manage" do
+      {
+        "template questions" => "TemplateQuestion.new",
+        "personal engagement lists" => "PersonalEngagementList.new",
+        "requests" => "Request.new"
+      }.each do |title, model|
+        it title do
+          @ability.should be_able_to(:manage, eval(model))
+        end
+      end 
     end
   end
 end
