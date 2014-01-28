@@ -9,8 +9,6 @@ Cems::Application.routes.draw do
     resources :requests, only: [:create]
   end
 
-  get '/dashboard' => 'home#index'
-  
   get '/templates/:path.html' => 'templates#template', :constraints => { :path => /.+/ }
 
   get '/signout' => "application#signout"
