@@ -1,8 +1,5 @@
 module Api
-  class PersonalEngagementListsController < ApplicationController
-    respond_to :json
-    before_action :valid_session?
-
+  class PersonalEngagementListsController < BaseApiController
     def pels_for_current_user
       @pels = PersonalEngagementList.where(user_id: current_user.id)
     end

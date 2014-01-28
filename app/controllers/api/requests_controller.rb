@@ -1,7 +1,5 @@
 module Api
-  class RequestsController < ApplicationController
-    respond_to :json
-    before_action :valid_session?
+  class RequestsController < BaseApiController
     before_action :check_ability, only: :create
 
     def create
