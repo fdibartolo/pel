@@ -30,9 +30,20 @@ describe Api::RequestsController do
         response.should be_success
       end
 
-      it "should create request with given payload" do
+      it "should create request to given owner" do
         post :create, payload, valid_session
         Request.last.owner_id.should == user.id
+      end
+
+      it "should respond with valid and invalid recipients" do
+        FactoryGirl.create :user, enterprise_id: 'user1'
+        post :create, payload, valid_session
+        body = JSON.parse response.body
+        body['valid_recipients'].count.should == 1
+        body['valid_recipients'][0].should == 'user1'
+        body['invalid_recipients'].count.should == 2
+        body['invalid_recipients'][0].should == 'user2'
+        body['invalid_recipients'][1].should == 'user3'
       end
     end
   end

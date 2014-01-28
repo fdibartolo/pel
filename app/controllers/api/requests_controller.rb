@@ -2,11 +2,12 @@ module Api
   class RequestsController < ApplicationController
     respond_to :json
     before_action :valid_session?
-    before_action :create_request, only: :create
+    before_action :check_ability, only: :create
 
     def create
-      @request.owner_id = current_user.id
-      head :ok if @request.save
+      @request = Request.new(owner: current_user)
+      @invalid_recipients = @request.add_recipients_and_return_invalid request_params
+      @request.save
     end
 
     private
@@ -14,11 +15,8 @@ module Api
       return head :unauthorized unless current_user
     end
 
-    def create_request
-      request_params
+    def check_ability
       return head :forbidden if cannot? :create, Request
-
-      @request = Request.new
     end
 
     def request_params
