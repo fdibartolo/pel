@@ -1,7 +1,11 @@
 module Api
   class RequestsController < BaseApiController
-    before_action :check_ability, only: :create
+    before_action :check_ability, only: [:new, :create]
 
+    def new
+      @request = Request.new
+    end
+    
     def create
       @request = Request.new(owner: current_user)
       @invalid_recipients = @request.add_recipients_and_return_invalid request_params

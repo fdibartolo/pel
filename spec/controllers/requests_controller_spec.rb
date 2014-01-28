@@ -47,4 +47,33 @@ describe Api::RequestsController do
       end
     end
   end
+
+  context "getting a new request" do
+    context "with invalid params" do
+      it "should return 401 if no current_user" do
+        get :new
+        response.status.should == 401
+      end
+
+      it "should return 403 if current_user has no ability" do
+        session = { enterprise_id: user.enterprise_id }
+        get :new, {}, session
+        response.status.should == 403
+      end
+    end
+
+    context "with valid params" do
+      it "should be success" do
+        get :new, {}, valid_session
+        response.should be_success
+      end
+
+      it "should respond with empty list of recipients" do
+        get :new, {}, valid_session
+        body = JSON.parse response.body
+        body['recipients'].should be_an Array
+        body['recipients'].should be_empty
+      end
+    end
+  end
 end
