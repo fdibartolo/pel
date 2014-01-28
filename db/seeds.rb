@@ -27,6 +27,7 @@ Role.all.each {|r| r.users.destroy_all}
   RequestorRole => %w[
     fernando.di.bartolo 
     heraldo.gimenez
+    requestor1
   ],
   '' => %w[
     user1

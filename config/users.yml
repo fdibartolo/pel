@@ -10,3 +10,6 @@ users:
 
   user1:
     groups: ""
+
+  requestor1:
+    groups: ""
