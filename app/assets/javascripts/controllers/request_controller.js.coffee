@@ -7,21 +7,19 @@ angular.module('cems.controllers').controller 'RequestController',
       $scope.request = request
 
   $scope.create = ->
-    sanitizeRecipients()
+    buildSanitizedRecipientsList()
     RequestService.create($scope.request).then (result) ->
       $scope.request.recipients = result.valid_recipients.join(', ')
       $scope.invalid_recipients = result.invalid_recipients
       if result.errors != undefined
         $scope.errors = result.errors
 
-  sanitizeRecipients = ->
-    console.log $scope.request
-    $scope.request.recipients = $scope.request.recipients.trim()
+  buildSanitizedRecipientsList = ->
+    $scope.request.recipients = removeWhitespacesFrom($scope.request.recipients)
     $scope.request.recipients = $scope.request.recipients.split(",")
-    # angular.forEach $scope.request.recipients, (recipient) ->
-    #   recipient = recipient.trim()
 
-    console.log $scope.request
+  removeWhitespacesFrom = (string) ->
+    string.replace RegExp(" ", "g"), ""
 
   $scope.cancel = ->
     $location.path("/dashboard")
