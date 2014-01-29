@@ -6,7 +6,7 @@ Cems::Application.routes.draw do
       get '/lists' => 'personal_engagement_lists#pels_for_current_user', on: :collection
     end
 
-    resources :requests, only: [:new, :create]
+    resources :requests, only: [:new, :create, :update]
   end
 
   get '/templates/:path.html' => 'templates#template', :constraints => { :path => /.+/ }

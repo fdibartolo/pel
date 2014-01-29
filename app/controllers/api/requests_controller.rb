@@ -13,6 +13,15 @@ module Api
       @request.save
     end
 
+    def update
+      @request = Request.find_by(id: params[:id])
+      return head :forbidden if cannot? :update, @request
+
+      @invalid_recipients = @request.add_recipients_and_return_invalid request_params
+      @request.message = params[:message] if params[:message]
+      @request.save
+    end
+
     private
     def valid_session?
       return head :unauthorized unless current_user

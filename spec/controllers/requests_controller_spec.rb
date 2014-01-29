@@ -11,7 +11,6 @@ describe Api::RequestsController do
 
   context "creating a request" do
     context "with invalid params" do
-
       it "should return 401 if no current_user" do
         post :create, payload
         response.status.should == 401
@@ -35,6 +34,13 @@ describe Api::RequestsController do
         Request.last.owner_id.should == user.id
       end
 
+      it "should respond with created request id" do
+        FactoryGirl.create :user, enterprise_id: 'user1'
+        post :create, payload, valid_session
+        body = JSON.parse response.body
+        body['id'].should == Request.last.id
+      end
+
       it "should respond with valid and invalid recipients" do
         FactoryGirl.create :user, enterprise_id: 'user1'
         post :create, payload, valid_session
@@ -49,6 +55,62 @@ describe Api::RequestsController do
       it "should respond with created message" do
         FactoryGirl.create :user, enterprise_id: 'user1'
         post :create, payload, valid_session
+        body = JSON.parse response.body
+        body['message'].should == payload['message']
+      end
+    end
+  end
+
+  context "updating a request" do
+    before :each do
+      @requestor = FactoryGirl.create(:user, enterprise_id: 'requestor')
+      @requestor.roles << FactoryGirl.create(:role, name: RequestorRole)
+      @some_request = FactoryGirl.create(:request, owner: @requestor)
+      payload['id'] = @some_request.id
+    end
+
+    context "with invalid params" do
+      it "should return 401 if no current_user" do
+        patch :update, payload
+        response.status.should == 401
+      end
+
+      it "should return 403 if current_user has no ability" do
+        session = { enterprise_id: user.enterprise_id }
+        patch :update, payload, session
+        response.status.should == 403
+      end
+    end
+
+    context "with valid params" do
+      let(:session) { { enterprise_id: @requestor.enterprise_id } }
+
+      it "should be success" do
+        patch :update, payload, session
+        response.should be_success
+      end
+
+      it "should respond with created request id" do
+        FactoryGirl.create :user, enterprise_id: 'user1'
+        patch :update, payload, session
+        body = JSON.parse response.body
+        body['id'].should == @some_request.id
+      end
+
+      it "should respond with valid and invalid recipients" do
+        FactoryGirl.create :user, enterprise_id: 'user1'
+        patch :update, payload, session
+        body = JSON.parse response.body
+        body['valid_recipients'].count.should == 1
+        body['valid_recipients'][0].should == 'user1'
+        body['invalid_recipients'].count.should == 2
+        body['invalid_recipients'][0].should == 'user2'
+        body['invalid_recipients'][1].should == 'user3'
+      end
+
+      it "should respond with created message" do
+        FactoryGirl.create :user, enterprise_id: 'user1'
+        patch :update, payload, session
         body = JSON.parse response.body
         body['message'].should == payload['message']
       end
