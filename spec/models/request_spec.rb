@@ -13,7 +13,13 @@ describe Request do
     let(:user) { FactoryGirl.create :user, enterprise_id: 'valid.user' }
 
     before :each do
-      @invalid_eids = request.add_recipients_and_return_invalid [user.enterprise_id, 'invalid.eid']
+      eids = [user.enterprise_id, 'invalid.eid', user.enterprise_id]
+      @invalid_eids = request.add_recipients_and_return_invalid eids
+    end
+
+    it "duplicates should be discarded" do
+      request.recipients.count.should == 1
+      request.recipients.first.should eq user
     end
 
     it "valid should get added" do

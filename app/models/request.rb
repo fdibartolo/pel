@@ -5,6 +5,7 @@ class Request < ActiveRecord::Base
   validates :owner, presence: true
 
   def add_recipients_and_return_invalid enterprise_ids
+    enterprise_ids.uniq!
     invalid_enterprise_ids = []
 
     enterprise_ids.each do |enterprise_id|
