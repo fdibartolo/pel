@@ -4,6 +4,7 @@ describe TemplatesController do
   %w[
     dashboard
     new
+    new_request
   ].each do |template|
     it "should return the #{template} template" do
       get 'template', { path: template }
