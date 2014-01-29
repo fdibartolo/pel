@@ -9,11 +9,9 @@ angular.module('cems.controllers').controller 'RequestController',
   $scope.create = ->
     sanitizeRecipients()
     RequestService.create($scope.request).then (result) ->
-      if result.invalid_recipients.length > 0
-        $scope.invalid_recipients = result.invalid_recipients
-      else if result.errors == undefined
-        $location.path("/dashboard")
-      else
+      $scope.request.recipients = result.valid_recipients.join(', ')
+      $scope.invalid_recipients = result.invalid_recipients
+      if result.errors != undefined
         $scope.errors = result.errors
 
   sanitizeRecipients = ->
