@@ -1,4 +1,6 @@
-angular.module('cems.services', []).factory 'PersonalEngagementListService', ['$q', '$http', ($q, $http) ->
+angular.module('cems.services').factory 'PersonalEngagementListService', 
+['$q', '$http', ($q, $http) ->
+
   all = ->
     deferred = $q.defer()
     $http.get('/api/personal_engagement_lists/lists').success((data, status) ->

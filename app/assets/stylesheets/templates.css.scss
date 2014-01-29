@@ -1,3 +1,5 @@
+$dangerTextColor: #A94442;
+
 // Template: new.html
 
 .draggable {
@@ -23,4 +25,9 @@
 
 .btn-question-close {
   margin-top: 4px;
+}
+
+// Template: new_request.html
+.redText {
+  color: $dangerTextColor;
 }

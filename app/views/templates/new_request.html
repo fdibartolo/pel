@@ -1,0 +1,50 @@
+<div ng-cloak ng-init="init()">
+  <h3>Create New Request</h3>
+  
+  <ul ng-show="errors != null" class="list-group list-unstyled">
+    <li ng-repeat="error in errors">
+      <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>{{error}}</strong>
+      </div>
+    </li>
+  </ul>
+  
+  <div ng-show="invalid_recipients != null" class="panel panel-danger">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        The following enterprise ids seemed to be invalid:
+      </h3>
+    </div>
+    <div class="panel-body">
+      <div ng-repeat="invalid_recipient in invalid_recipients" class="redText">
+        <strong>{{invalid_recipient}}</strong>
+      </div>
+    </div>
+  </div>
+
+<!--   <ul ng-show="invalid_recipients != null" class="list-group list-unstyled">
+    <li>
+      <h4 class="list-group-item-heading">
+        The following enterprise ids seemed to be invalid:
+      </h4>
+    </li>
+    <li ng-repeat="invalid_recipient in invalid_recipients">
+      <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>{{invalid_recipient}}</strong>
+      </div>
+    </li>
+  </ul>
+ -->  
+  <div class="form-group">
+    <div class="input-group">
+      <span class="input-group-addon">Recipients</span>
+      <input type="text" class="form-control" ng-model="request.recipients" placeholder="comma separated (john.doe, jane.doe)">
+    </div><br>
+    <textarea row="3" class="form-control" placeholder="Want to include a message?"></textarea>
+  </div>
+
+  <button class="btn btn-success" ng-click="create()">Create</button>
+  <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+<div>

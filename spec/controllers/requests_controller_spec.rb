@@ -7,7 +7,7 @@ describe Api::RequestsController do
   end
 
   let(:user) { FactoryGirl.create :user }
-  let(:payload) { {'people' => ['user1','user2','user3']} }
+  let(:payload) { {'recipients' => ['user1','user2','user3']} }
 
   context "creating a request" do
     context "with invalid params" do

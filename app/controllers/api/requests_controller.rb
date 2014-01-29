@@ -22,7 +22,7 @@ module Api
     end
 
     def request_params
-      params.require(:people)
+      params.require(:recipients)
     end
   end
 end

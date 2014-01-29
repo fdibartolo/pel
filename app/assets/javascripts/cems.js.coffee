@@ -1,7 +1,8 @@
 app = angular.module('cems', ['ngRoute', 'ui.sortable', 'cems.services', 'cems.controllers'])
 
-# Created here so controllers on separate files can be built on top of this one
+# Created here so modules on separate files can be built on top of this one
 controllers = angular.module('cems.controllers', [])
+services = angular.module('cems.services', [])
 
 app.config ['$httpProvider', '$routeProvider', ($httpProvider, $routeProvider) ->
   authToken = $("meta[name=\"csrf-token\"]").attr("content")
@@ -18,6 +19,10 @@ app.config ['$httpProvider', '$routeProvider', ($httpProvider, $routeProvider) -
   $routeProvider.when '/edit/:id',
     templateUrl: '/templates/new.html'
     controller: 'PersonalEngagementListController'
+
+  $routeProvider.when '/new_request',
+    templateUrl: '/templates/new_request.html'
+    controller: 'RequestController'
 
   $routeProvider.otherwise redirectTo: '/dashboard'
 ]
