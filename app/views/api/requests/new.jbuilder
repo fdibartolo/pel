@@ -1,1 +1,1 @@
-json.recipients @request.recipients
+json.(@request, :recipients, :message)

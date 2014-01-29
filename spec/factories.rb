@@ -9,18 +9,19 @@ FactoryGirl.define do
   end
 
   factory :user do
-    enterprise_id "leonel.messi"
+    enterprise_id 'leonel.messi'
   end
 
   factory :template_question do
-    body "some question"
+    body 'some question'
   end
 
   factory :role do
-    name "Admin"
+    name 'Admin'
   end
 
   factory :request do
-    owner_id 1
+    owner_id  1
+    message   'some message'
   end
 end

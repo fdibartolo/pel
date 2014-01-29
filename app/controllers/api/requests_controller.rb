@@ -9,6 +9,7 @@ module Api
     def create
       @request = Request.new(owner: current_user)
       @invalid_recipients = @request.add_recipients_and_return_invalid request_params
+      @request.message = params[:message] if params[:message]
       @request.save
     end
 

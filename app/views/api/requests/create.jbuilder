@@ -3,4 +3,5 @@ if @request.errors.any?
 else
   json.valid_recipients @request.recipients.map(&:enterprise_id)
   json.invalid_recipients @invalid_recipients
+  json.(@request, :message)
 end

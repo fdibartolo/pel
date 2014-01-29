@@ -7,7 +7,7 @@ describe Api::RequestsController do
   end
 
   let(:user) { FactoryGirl.create :user }
-  let(:payload) { {'recipients' => ['user1','user2','user3']} }
+  let(:payload) { {'recipients' => ['user1','user2','user3'], 'message' => 'Please complete a PEL!'} }
 
   context "creating a request" do
     context "with invalid params" do
@@ -45,6 +45,13 @@ describe Api::RequestsController do
         body['invalid_recipients'][0].should == 'user2'
         body['invalid_recipients'][1].should == 'user3'
       end
+
+      it "should respond with created message" do
+        FactoryGirl.create :user, enterprise_id: 'user1'
+        post :create, payload, valid_session
+        body = JSON.parse response.body
+        body['message'].should == payload['message']
+      end
     end
   end
 
@@ -68,11 +75,18 @@ describe Api::RequestsController do
         response.should be_success
       end
 
-      it "should respond with empty list of recipients" do
+      it "should include empty list of recipients within the response" do
         get :new, {}, valid_session
         body = JSON.parse response.body
+        body.should include 'recipients'
         body['recipients'].should be_an Array
         body['recipients'].should be_empty
+      end
+
+      it "should include empty message within the response" do
+        get :new, {}, valid_session
+        body = JSON.parse response.body
+        body.should include 'message'
       end
     end
   end

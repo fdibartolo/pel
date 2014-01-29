@@ -28,7 +28,8 @@
       <span class="input-group-addon">Recipients</span>
       <input type="text" class="form-control" ng-model="request.recipients" placeholder="comma separated (john.doe, jane.doe)">
     </div><br>
-    <textarea row="3" class="form-control" placeholder="Want to include a message?"></textarea>
+    <textarea row="3" class="form-control" placeholder="Want to include a message?" ng-model="request.message">
+    </textarea>
   </div>
 
   <button class="btn btn-success" ng-click="create()">Create</button>
