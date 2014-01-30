@@ -11,7 +11,7 @@ class Request < ActiveRecord::Base
     enterprise_ids.each do |enterprise_id|
       user = User.find_by(enterprise_id: enterprise_id)
       if user
-        self.recipients.push user
+        self.recipients.push user unless recipient_ids.include? user.id
       else
         invalid_enterprise_ids << enterprise_id
       end

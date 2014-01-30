@@ -84,6 +84,10 @@ describe Api::RequestsController do
 
     context "with valid params" do
       let(:session) { { enterprise_id: @requestor.enterprise_id } }
+      
+      before :each do
+        @user = FactoryGirl.create :user, enterprise_id: 'user1'
+      end
 
       it "should be success" do
         patch :update, payload, session
@@ -91,14 +95,12 @@ describe Api::RequestsController do
       end
 
       it "should respond with created request id" do
-        FactoryGirl.create :user, enterprise_id: 'user1'
         patch :update, payload, session
         body = JSON.parse response.body
         body['id'].should == @some_request.id
       end
 
       it "should respond with valid and invalid recipients" do
-        FactoryGirl.create :user, enterprise_id: 'user1'
         patch :update, payload, session
         body = JSON.parse response.body
         body['valid_recipients'].count.should == 1
@@ -109,10 +111,17 @@ describe Api::RequestsController do
       end
 
       it "should respond with created message" do
-        FactoryGirl.create :user, enterprise_id: 'user1'
         patch :update, payload, session
         body = JSON.parse response.body
         body['message'].should == payload['message']
+      end
+
+      it "should not add a recipient if it is already present" do
+        @some_request.recipients << @user
+        patch :update, payload, session
+        body = JSON.parse response.body
+        body['valid_recipients'].count.should == 1
+        body['valid_recipients'][0].should == 'user1'
       end
     end
   end
