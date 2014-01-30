@@ -11,16 +11,24 @@ angular.module('cems.services').factory 'RequestService',
 
     deferred.promise
 
-  create = (request) ->
+  submit = (request) ->
     deferred = $q.defer()
-    $http.post('/api/requests', request).success((data, status) ->
+
+    if request.id == undefined
+      method = 'POST'
+      url = '/api/requests'
+    else
+      method = 'PUT'
+      url = '/api/requests/' + request.id
+
+    $http({method: method, url: url, data: request}).success((data, status) ->
       deferred.resolve(data)
     ).error (data, status) ->
       deferred.reject()
-      alert "Unable to create Request"
+      alert "Unable to create/update Request"
 
     deferred.promise
 
   new: newRequest,
-  create: create
+  submit: submit
 ]
