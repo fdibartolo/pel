@@ -1,4 +1,6 @@
 Cems::Application.routes.draw do
+  mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
+
   resources :template_questions
 
   namespace :api, defaults: { format: :json } do

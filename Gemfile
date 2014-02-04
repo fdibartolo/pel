@@ -11,16 +11,17 @@ gem 'jquery-rails', '3.0.4'
 gem 'jquery-ui-rails', '4.1.1'
 gem 'jbuilder', '2.0.2'
 
-# authentication strategies ####
+# authentication strategies ---------------------------------------------------
 gem 'dummy-auth-rails',
   git: "git@innersource.accenture.com:/gems-and-plugins/dummy-auth-rails.git"
-#################################
+#------------------------------------------------------------------------------
 
 gem 'cancan', '1.6.10'
 
 group :development, :test do
   gem 'rspec-rails', '2.14.1'
   gem 'factory_girl_rails', '4.3.0'
+  gem 'jasmine-rails', '0.5.5'
 end
 
 group :test do
