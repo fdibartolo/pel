@@ -32,6 +32,13 @@ $dangerTextColor: #A94442;
 }
 
 // Template: new_request.html
+
 .redText {
   color: $dangerTextColor;
+}
+
+// Template: inbox.html
+
+.requestMessage {
+  color: gray;
 }

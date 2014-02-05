@@ -1,0 +1,17 @@
+<div ng-cloak ng-init="inbox()">
+  <ul class="list-group">
+    <li ng-repeat="request in requests | orderBy:'-created_at'" class="list-group-item">
+      <h5>
+        {{request.created_at | date:'mediumDate'}}
+      </h5>
+      <p>
+        <strong>{{request.owner}}</strong> has requested you to provide a Personal Engagement List
+      </p>
+      <p ng-show="request.message != null" class="requestMessage">{{request.message}}</p>
+  
+      <div class="btn-group btn-group-xs pull-right">
+        <button class="btn btn-default disabled">Do Something</button>
+      </div><br>
+    </li>
+  </ul>
+<div>

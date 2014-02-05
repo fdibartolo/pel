@@ -5,6 +5,7 @@ describe TemplatesController do
     dashboard
     new
     new_request
+    inbox
   ].each do |template|
     it "should return the #{template} template" do
       get 'template', { path: template }

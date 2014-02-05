@@ -12,6 +12,10 @@ app.config ['$httpProvider', '$routeProvider', ($httpProvider, $routeProvider) -
     templateUrl: '/templates/dashboard.html'
     controller: 'DashboardController'
 
+  $routeProvider.when '/inbox',
+    templateUrl: '/templates/inbox.html'
+    controller: 'DashboardController'
+
   $routeProvider.when '/new',
     templateUrl: '/templates/new.html'
     controller: 'PersonalEngagementListController'

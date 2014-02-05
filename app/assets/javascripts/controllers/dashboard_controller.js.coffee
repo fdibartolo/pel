@@ -1,5 +1,5 @@
 angular.module('cems.controllers').controller 'DashboardController', 
-['$scope', '$location', 'PersonalEngagementListService', ($scope, $location, PersonalEngagementListService) ->
+['$scope', '$location', 'PersonalEngagementListService', 'RequestService', ($scope, $location, PersonalEngagementListService, RequestService) ->
 
   $scope.init = ->
     PersonalEngagementListService.all().then (pels) ->
@@ -17,4 +17,8 @@ angular.module('cems.controllers').controller 'DashboardController',
 
     createdAt = new Date(Date.parse(pel.created_at))
     today.toDateString() == createdAt.toDateString()
+
+  $scope.inbox = ->
+    RequestService.all().then (requests) ->
+      $scope.requests = requests
 ]

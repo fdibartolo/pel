@@ -17,7 +17,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li><%= link_to 'Dashboard', root_path %></li>
           <li>
-            <a href="">
+            <a href= <%= "#{root_url}#/inbox" %> >
               Inbox <span ng-show="<%= "#{inbox_count}" %> > 0" class="badge orangeBadge"><%= inbox_count %></span>
               <!-- Inbox <span ng-show="messageCount > 0" class="badge greenBadge">{{messageCount}}</span> -->
             </a>

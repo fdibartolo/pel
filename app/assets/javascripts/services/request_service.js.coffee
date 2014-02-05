@@ -1,6 +1,16 @@
 angular.module('cems.services').factory 'RequestService', 
 ['$q', '$http', ($q, $http) ->
 
+  all = ->
+    deferred = $q.defer()
+    $http.get('/api/requests/all').success((data, status) ->
+      deferred.resolve(data)
+    ).error (data, status) ->
+      deferred.reject()
+      alert "Unable to get inbox requests"
+
+    deferred.promise
+
   newRequest = ->
     deferred = $q.defer()
     $http.get('/api/requests/new').success((data, status) ->
@@ -29,6 +39,7 @@ angular.module('cems.services').factory 'RequestService',
 
     deferred.promise
 
+  all: all,
   new: newRequest,
   submit: submit
 ]
