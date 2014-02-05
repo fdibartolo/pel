@@ -11,7 +11,10 @@ angular.module('cems.controllers').controller 'DashboardController',
   $scope.edit = (id) ->
     $location.path("/edit/" + id)
 
-  $scope.isNew = (pel) ->
+  $scope.isNew = (pel, today) ->
+    if (typeof(today) == "undefined")
+      today = new Date()
+
     createdAt = new Date(Date.parse(pel.created_at))
-    new Date().toDateString() == createdAt.toDateString()
+    today.toDateString() == createdAt.toDateString()
 ]
