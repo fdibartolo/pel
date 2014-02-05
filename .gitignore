@@ -21,3 +21,7 @@
 # Rspec CI unit and coverage reports
 spec/reports/
 coverage/
+
+# Jasmine coverage reports
+.jhw-cache/
+target/
