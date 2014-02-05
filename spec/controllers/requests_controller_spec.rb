@@ -161,4 +161,43 @@ describe Api::RequestsController do
       end
     end
   end
+
+  context "retrieving requests for the current user" do
+    context "with invalid params" do
+      it "should return 401 if no current_user" do
+        get :all_for_current_user
+        response.status.should == 401
+      end
+    end
+
+    context "with valid params" do
+      before :each do
+        requestor = FactoryGirl.create(:user, enterprise_id: 'requestor')
+        @some_request = FactoryGirl.create(:request, owner: requestor)
+        @some_request.recipients << user # -> the one in session
+        another_requestor = FactoryGirl.create(:user, enterprise_id: 'another_requestor')
+        @another_request = FactoryGirl.create(:request, owner: another_requestor)
+        @another_request.recipients << user # -> the one in session
+
+        # one more request NOT for the current user
+        FactoryGirl.create(:request, owner: requestor)
+      end
+
+      it "should be success" do
+        get :all_for_current_user, {}, valid_session
+        response.should be_success
+      end
+
+      it "should include the two requests" do
+        get :all_for_current_user, {}, valid_session
+        body = JSON.parse response.body
+        body.should be_an Array
+        body.count.should == 2
+        body.first['id'].should == @some_request.id
+        body.first['owner'].should == @some_request.owner.enterprise_id
+        body.last['id'].should == @another_request.id
+        body.last['owner'].should == @another_request.owner.enterprise_id
+      end
+    end
+  end
 end

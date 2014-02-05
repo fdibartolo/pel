@@ -2,6 +2,10 @@ module Api
   class RequestsController < BaseApiController
     before_action :check_ability, only: [:new, :create]
 
+    def all_for_current_user
+      @requests = current_user.requests  
+    end
+
     def new
       @request = Request.new
     end
