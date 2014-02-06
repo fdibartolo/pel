@@ -22,7 +22,7 @@ group :development, :test do
   gem 'rspec-rails', '2.14.1'
   gem 'factory_girl_rails', '4.3.0'
   gem 'jasmine-rails', '0.5.5'
-  gem 'jasmine-coverage'
+  # gem 'jasmine-coverage'
 end
 
 group :test do
