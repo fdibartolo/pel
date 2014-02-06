@@ -1,4 +1,10 @@
 <div ng-cloak ng-init="inbox()">
+
+  <h4 ng-show="requests.length == 0">
+    Your inbox is clean! <br>
+    You have no pending requests.
+  </h4>
+
   <ul class="list-group">
     <li ng-repeat="request in requests | orderBy:'-created_at'" class="list-group-item">
       <h5>
