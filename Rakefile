@@ -3,6 +3,6 @@
 
 require File.expand_path('../config/application', __FILE__)
 require 'ci/reporter/rake/rspec'
-require 'jasmine/coverage'
+# require 'jasmine/coverage'
 
 Cems::Application.load_tasks
