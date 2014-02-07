@@ -1,6 +1,7 @@
 class Request < ActiveRecord::Base
   belongs_to :owner, class_name: 'User'
-  has_and_belongs_to_many :recipients, class_name: 'User'
+  has_many :requisitions
+  has_many :recipients, through: :requisitions, source: :user
 
   validates :owner, presence: true
 

@@ -24,4 +24,10 @@ FactoryGirl.define do
     owner_id  1
     message   'some message'
   end
+
+  factory :requisition do
+    request_id                  1
+    user_id                     1
+    personal_engagement_list_id 1
+  end
 end

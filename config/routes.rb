@@ -10,6 +10,7 @@ Cems::Application.routes.draw do
 
     resources :requests, only: [:new, :create, :update] do
       get 'all' => 'requests#all_for_current_user', on: :collection
+      match 'submit' => 'requests#submit_requisition', on: :member, via: [:put, :patch]
     end
   end
 

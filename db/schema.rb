@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140129195743) do
+ActiveRecord::Schema.define(version: 20140207031137) do
 
   create_table "personal_engagement_lists", force: true do |t|
     t.datetime "created_at"
@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(version: 20140129195743) do
   create_table "requests_users", id: false, force: true do |t|
     t.integer "request_id"
     t.integer "user_id"
+  end
+
+  create_table "requisitions", force: true do |t|
+    t.integer  "request_id"
+    t.integer  "user_id"
+    t.integer  "personal_engagement_list_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "roles", force: true do |t|
