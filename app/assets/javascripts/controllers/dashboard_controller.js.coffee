@@ -1,5 +1,5 @@
 angular.module('cems.controllers').controller 'DashboardController', 
-['$scope', '$location', 'PersonalEngagementListService', 'RequestService', ($scope, $location, PersonalEngagementListService, RequestService) ->
+['$scope', '$location', '$filter', 'PersonalEngagementListService', 'RequestService', ($scope, $location, $filter, PersonalEngagementListService, RequestService) ->
 
   $scope.init = ->
     PersonalEngagementListService.all().then (pels) ->
@@ -19,6 +19,15 @@ angular.module('cems.controllers').controller 'DashboardController',
     today.toDateString() == createdAt.toDateString()
 
   $scope.inbox = ->
-    RequestService.all().then (requests) ->
-      $scope.requests = requests
+    PersonalEngagementListService.all().then (pels) ->
+      $scope.pels = pels
+      RequestService.all().then (requests) ->
+        $scope.requests = requests
+
+  $scope.selectPelForRequisition = (id, text) ->
+    $scope.selectedPelId = id
+    $scope.submitButtonText = $filter('date')(text,'mediumDate')
+  
+  $scope.cannotSubmitRequisition = ->
+    typeof($scope.selectedPelId) == "undefined"
 ]

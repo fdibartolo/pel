@@ -13,20 +13,23 @@
       <p ng-show="request.message != null" class="requestMessage">{{request.message}}</p>
   
       <div class="pull-right">
-      <div class="btn-group btn-group-sm">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-          Provide a PEL <span class="caret"></span>
+        <div class="btn-group btn-group-sm">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span ng-bind="submitButtonText || 'Provide a PEL'"></span>&nbsp;<span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li role="presentation" class="dropdown-header" ng-show="pels.length > 0">Pick an existing one</li>
+            <li ng-repeat="pel in pels | orderBy:'-created_at'">
+              <a ng-click="selectPelForRequisition(pel.id, pel.created_at)">{{pel.created_at | date:'mediumDate'}}</a>
+            </li>
+            <li class="divider" ng-show="pels.length > 0"></li>
+            <li><a ng-click="new()">Create a new one</a></li>
+          </ul>
+        </div>
+        <button class="btn btn-sm btn-success" ng-class="{disabled: cannotSubmitRequisition()}" 
+          ng-click="submitRequisition()">
+            Submit
         </button>
-        <ul class="dropdown-menu" role="menu">
-          <li role="presentation" class="dropdown-header">Pick an existing one</li>
-          <li><a href="#">PEL 1</a></li>
-          <li><a href="#">PEL 2</a></li>
-          <li><a href="#">PEL 3</a></li>
-          <li class="divider"></li>
-          <li><a ng-click="new()">Create a new one</a></li>
-        </ul>
-      </div>
-      <button class="btn btn-sm btn-success disabled">Submit</button>
       </div>
       <br><br>
     </li>

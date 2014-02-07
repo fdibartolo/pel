@@ -21,7 +21,7 @@ angular.module('cems.services').factory 'RequestService',
 
     deferred.promise
 
-  submit = (request) ->
+  createOrUpdate = (request) ->
     deferred = $q.defer()
 
     if request.id == undefined
@@ -41,5 +41,5 @@ angular.module('cems.services').factory 'RequestService',
 
   all: all,
   new: newRequest,
-  submit: submit
+  create: createOrUpdate
 ]

@@ -8,7 +8,7 @@ angular.module('cems.controllers').controller 'RequestController',
 
   $scope.create = ->
     buildSanitizedRecipientsList()
-    RequestService.submit($scope.request).then (result) ->
+    RequestService.create($scope.request).then (result) ->
       $scope.request.id = result.id
       $scope.request.recipients = result.valid_recipients.join(', ')
       $scope.invalid_recipients = result.invalid_recipients
