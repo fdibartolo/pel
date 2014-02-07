@@ -8,16 +8,27 @@
   <ul class="list-group">
     <li ng-repeat="request in requests | orderBy:'-created_at'" class="list-group-item">
       <h5>
-        {{request.created_at | date:'mediumDate'}}
+        On <b>{{request.created_at | date:'mediumDate'}}</b>, <i>{{request.owner}}</i> has requested you to provide a Personal Engagement List
       </h5>
-      <p>
-        <strong>{{request.owner}}</strong> has requested you to provide a Personal Engagement List
-      </p>
       <p ng-show="request.message != null" class="requestMessage">{{request.message}}</p>
   
-      <div class="btn-group btn-group-xs pull-right">
-        <button class="btn btn-default disabled">Do Something</button>
-      </div><br>
+      <div class="pull-right">
+      <div class="btn-group btn-group-sm">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          Provide a PEL <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li role="presentation" class="dropdown-header">Pick an existing one</li>
+          <li><a href="#">PEL 1</a></li>
+          <li><a href="#">PEL 2</a></li>
+          <li><a href="#">PEL 3</a></li>
+          <li class="divider"></li>
+          <li><a ng-click="new()">Create a new one</a></li>
+        </ul>
+      </div>
+      <button class="btn btn-sm btn-success disabled">Submit</button>
+      </div>
+      <br><br>
     </li>
   </ul>
 <div>
