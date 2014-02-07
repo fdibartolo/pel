@@ -200,4 +200,52 @@ describe Api::RequestsController do
       end
     end
   end
+
+  context "submiting a requisition" do
+    before :each do
+      requestor = FactoryGirl.create(:user, enterprise_id: 'requestor')
+      @some_request = FactoryGirl.create(:request, owner: requestor)
+      @pel = FactoryGirl.create :personal_engagement_list
+
+      @some_request.recipients << user
+
+      @payload = { format: :json, id: @some_request.id, personal_engagement_list_id: @pel.id }
+    end
+
+    context "with invalid params" do
+      it "should return 401 if no current_user" do
+        patch :submit_requisition, @payload
+        response.status.should == 401
+      end
+
+      it "should include error if request does not exist" do
+        invalid_id = @some_request.id + 1
+        @payload[:id] = invalid_id
+        patch :submit_requisition, @payload, valid_session
+        body = JSON.parse response.body
+        body['errors'].should include "Cannot find Request with id=#{invalid_id}"
+      end
+
+      it "should include error if pel id is not provided" do
+        @payload.delete :personal_engagement_list_id
+        expect{ patch :submit_requisition, @payload, valid_session }.to raise_error ActionController::ParameterMissing
+      end
+
+      it "should include error if pel does not exist" do
+        invalid_id = @pel.id + 1
+        @payload[:personal_engagement_list_id] = invalid_id
+        patch :submit_requisition, @payload, valid_session
+        body = JSON.parse response.body
+        body['errors'].should include "Cannot find PEL with id=#{invalid_id}"
+      end
+    end
+
+    context "with valid params" do
+      it "should return saved requisition" do
+        patch :submit_requisition, @payload, valid_session
+        body = JSON.parse response.body
+        body['requisition_id'].should be_present
+      end
+    end
+  end
 end
