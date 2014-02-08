@@ -1,5 +1,5 @@
 angular.module('cems.controllers').controller 'DashboardController', 
-['$scope', '$location', '$filter', 'PersonalEngagementListService', 'RequestService', ($scope, $location, $filter, PersonalEngagementListService, RequestService) ->
+['$scope', '$location', '$filter', '$route', 'PersonalEngagementListService', 'RequestService', ($scope, $location, $filter, $route, PersonalEngagementListService, RequestService) ->
 
   $scope.init = ->
     PersonalEngagementListService.all().then (pels) ->
@@ -35,5 +35,6 @@ angular.module('cems.controllers').controller 'DashboardController',
     RequestService.submitRequisition(request).then (result) ->
       if result.errors != undefined
         alert($scope.errors)
-
+      else
+        $route.reload()
 ]
