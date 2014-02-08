@@ -3,7 +3,7 @@ module Api
     before_action :check_ability, only: [:new, :create]
 
     def all_for_current_user
-      @requests = current_user.requests  
+      @requests = current_user.requests
     end
 
     def new
@@ -51,7 +51,7 @@ module Api
     end
 
     def process_requisition_for pel
-      @requisition = Request.find(params[:id]).requisitions.where(user_id: current_user.id).first
+      @requisition = Request.find(params[:id]).requisition_for current_user
       @requisition.personal_engagement_list_id = pel.id
       @requisition.save!
     end

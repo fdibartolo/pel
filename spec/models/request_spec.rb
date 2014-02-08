@@ -32,4 +32,17 @@ describe Request do
       @invalid_eids.first.should == 'invalid.eid'
     end
   end
+
+  it "should return requisition for given user" do
+    owner = FactoryGirl.create :user, enterprise_id: 'owner'
+    request = FactoryGirl.create :request, owner: owner
+    current_user = FactoryGirl.create :user
+    requisition = FactoryGirl.create :requisition, request_id: request.id, user_id: current_user.id
+    FactoryGirl.create :requisition, request_id: request.id, user_id: owner.id
+
+    user_requisition = request.requisition_for current_user
+    user_requisition.should be_a Requisition
+    user_requisition.user_id.should == current_user.id
+    user_requisition.request_id.should == request.id
+  end
 end

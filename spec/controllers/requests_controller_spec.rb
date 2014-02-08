@@ -162,7 +162,7 @@ describe Api::RequestsController do
     end
   end
 
-  context "retrieving requests for the current user" do
+  context "retrieving requests for current user" do
     context "with invalid params" do
       it "should return 401 if no current_user" do
         get :all_for_current_user
@@ -174,10 +174,10 @@ describe Api::RequestsController do
       before :each do
         requestor = FactoryGirl.create(:user, enterprise_id: 'requestor')
         @some_request = FactoryGirl.create(:request, owner: requestor)
-        @some_request.recipients << user # -> the one in session
+        @some_request.add_recipients_and_return_invalid [user.enterprise_id]
         another_requestor = FactoryGirl.create(:user, enterprise_id: 'another_requestor')
         @another_request = FactoryGirl.create(:request, owner: another_requestor)
-        @another_request.recipients << user # -> the one in session
+        @another_request.add_recipients_and_return_invalid [user.enterprise_id]
 
         # one more request NOT for the current user
         FactoryGirl.create(:request, owner: requestor)
@@ -197,6 +197,18 @@ describe Api::RequestsController do
         body.first['owner'].should == @some_request.owner.enterprise_id
         body.last['id'].should == @another_request.id
         body.last['owner'].should == @another_request.owner.enterprise_id
+      end
+
+      it "should include related requisition" do
+        pel = FactoryGirl.create :personal_engagement_list, user: user
+        requisition = @some_request.requisition_for user
+        requisition.personal_engagement_list_id = pel.id
+        requisition.save!
+
+        get :all_for_current_user, {}, valid_session
+        body = JSON.parse response.body
+        body.first['requisition_id'].should be_present
+        body.first['requisition_pel_id'].should == pel.id
       end
     end
   end

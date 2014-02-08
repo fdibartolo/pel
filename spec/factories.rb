@@ -28,6 +28,6 @@ FactoryGirl.define do
   factory :requisition do
     request_id                  1
     user_id                     1
-    personal_engagement_list_id 1
+    personal_engagement_list_id nil
   end
 end
