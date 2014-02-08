@@ -13,7 +13,7 @@
       </h5>
       <p ng-show="request.message != null" class="requestMessage">{{request.message}}</p>
   
-      <div class="pull-right">
+      <div class="pull-right" ng-show="request.requisition_pel_id == null">
         <div class="btn-group btn-group-sm">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
             <span ng-bind="request.submitButtonText || 'Provide a PEL'"></span>&nbsp;<span class="caret"></span>
@@ -33,6 +33,10 @@
           ng-click="submitRequisitionFor(request)">
             Submit
         </button>
+      </div>
+
+      <div class="pull-right requestMessage" ng-show="request.requisition_pel_id != null">
+        Request submitted, no actions required.
       </div>
       <br><br>
     </li>

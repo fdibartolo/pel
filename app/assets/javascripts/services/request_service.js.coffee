@@ -43,7 +43,7 @@ angular.module('cems.services').factory 'RequestService',
     deferred = $q.defer()
 
     url = '/api/requests/' + request.id + '/submit'
-    payload = {'personal_engagement_list_id': request.pelId }
+    payload = {'personal_engagement_list_id': request.selectedPelId }
 
     $http.put(url, payload).success((data, status) ->
       deferred.resolve(data)
