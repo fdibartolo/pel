@@ -24,10 +24,16 @@ angular.module('cems.controllers').controller 'DashboardController',
       RequestService.all().then (requests) ->
         $scope.requests = requests
 
-  $scope.selectPelForRequisition = (id, text) ->
-    $scope.selectedPelId = id
-    $scope.submitButtonText = $filter('date')(text,'mediumDate')
+  $scope.selectPelForRequisition = (request, pelId, text) ->
+    request.pelId = pelId
+    request.submitButtonText = $filter('date')(text,'mediumDate')
   
-  $scope.cannotSubmitRequisition = ->
-    typeof($scope.selectedPelId) == "undefined"
+  $scope.cannotSubmitRequisitionFor = (request) ->
+    typeof(request.pelId) == "undefined"
+
+  $scope.submitRequisitionFor = (request) ->
+    RequestService.submitRequisition(request).then (result) ->
+      if result.errors != undefined
+        alert($scope.errors)
+
 ]

@@ -8,26 +8,29 @@
   <ul class="list-group">
     <li ng-repeat="request in requests | orderBy:'-created_at'" class="list-group-item">
       <h5>
-        On <b>{{request.created_at | date:'mediumDate'}}</b>, <i>{{request.owner}}</i> has requested you to provide a Personal Engagement List
+        On <b>{{request.created_at | date:'mediumDate'}}</b>, <i>{{request.owner}}</i> 
+        has requested you to provide a Personal Engagement List
       </h5>
       <p ng-show="request.message != null" class="requestMessage">{{request.message}}</p>
   
       <div class="pull-right">
         <div class="btn-group btn-group-sm">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            <span ng-bind="submitButtonText || 'Provide a PEL'"></span>&nbsp;<span class="caret"></span>
+            <span ng-bind="request.submitButtonText || 'Provide a PEL'"></span>&nbsp;<span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
             <li role="presentation" class="dropdown-header" ng-show="pels.length > 0">Pick an existing one</li>
             <li ng-repeat="pel in pels | orderBy:'-created_at'">
-              <a ng-click="selectPelForRequisition(pel.id, pel.created_at)">{{pel.created_at | date:'mediumDate'}}</a>
+              <a ng-click="selectPelForRequisition(request, pel.id, pel.created_at)">
+                {{pel.created_at | date:'mediumDate'}}
+              </a>
             </li>
             <li class="divider" ng-show="pels.length > 0"></li>
             <li><a ng-click="new()">Create a new one</a></li>
           </ul>
         </div>
-        <button class="btn btn-sm btn-success" ng-class="{disabled: cannotSubmitRequisition()}" 
-          ng-click="submitRequisition()">
+        <button class="btn btn-sm btn-success" ng-class="{disabled: cannotSubmitRequisitionFor(request)}" 
+          ng-click="submitRequisitionFor(request)">
             Submit
         </button>
       </div>

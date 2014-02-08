@@ -39,7 +39,22 @@ angular.module('cems.services').factory 'RequestService',
 
     deferred.promise
 
+  submitRequisition = (request) ->
+    deferred = $q.defer()
+
+    url = '/api/requests/' + request.id + '/submit'
+    payload = {'personal_engagement_list_id': request.pelId }
+
+    $http.put(url, payload).success((data, status) ->
+      deferred.resolve(data)
+    ).error (data, status) ->
+      deferred.reject()
+      alert "Unable to submit Requisition"
+
+    deferred.promise
+
   all: all,
   new: newRequest,
-  create: createOrUpdate
+  create: createOrUpdate,
+  submitRequisition: submitRequisition
 ]
