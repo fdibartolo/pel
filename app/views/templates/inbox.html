@@ -1,12 +1,22 @@
 <div ng-cloak ng-init="inbox()">
 
+  <ul ng-show="errors != null" class="list-group list-unstyled">
+    <li ng-repeat="error in errors">
+      <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>{{error}}</strong>
+      </div>
+    </li>
+  </ul>
+
   <h4 ng-show="requests.length == 0">
     Your inbox is clean! <br>
     You have no pending requests.
   </h4>
 
   <ul class="list-group">
-    <li ng-repeat="request in requests | orderBy:'-created_at'" class="list-group-item">
+    <li ng-repeat="request in requests | orderBy:'-created_at'" class="list-group-item"
+    ng-class="{requestCompleted: request.requisition_pel_id != null}">
       <h5>
         On <b>{{request.created_at | date:'mediumDate'}}</b>, <i>{{request.owner}}</i> 
         has requested you to provide a Personal Engagement List

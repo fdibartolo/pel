@@ -1,5 +1,5 @@
 angular.module('cems.services').factory 'RequestService', 
-['$q', '$http', ($q, $http) ->
+['$q', '$http', 'SessionService', ($q, $http, SessionService) ->
 
   all = ->
     deferred = $q.defer()
@@ -53,8 +53,21 @@ angular.module('cems.services').factory 'RequestService',
 
     deferred.promise
 
+  openRequestsCount = () ->
+    deferred = $q.defer()
+
+    all().then (requests) ->
+      SessionService.set 'requests', requests
+      count = 0
+      angular.forEach requests, (request) ->
+        count += 1  if request.requisition_pel_id is null
+      deferred.resolve(count)
+
+    deferred.promise
+
   all: all,
   new: newRequest,
   create: createOrUpdate,
-  submitRequisition: submitRequisition
+  submitRequisition: submitRequisition,
+  openRequestsCount: openRequestsCount
 ]

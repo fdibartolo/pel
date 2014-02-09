@@ -1,4 +1,5 @@
 $dangerTextColor: #A94442;
+$lightGreenColor: #EBFFED;
 
 // Template: new.html
 
@@ -41,4 +42,8 @@ $dangerTextColor: #A94442;
 
 .requestMessage {
   color: gray;
+}
+
+.requestCompleted {
+  background: $lightGreenColor;
 }

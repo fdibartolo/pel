@@ -1,5 +1,10 @@
 angular.module('cems.controllers').controller 'MenuController', 
-['$scope', ($scope) ->
+['$scope', 'RequestService', ($scope, RequestService) ->
 
-  $scope.messageCount = 1
+  RequestService.openRequestsCount().then (count) ->
+    $scope.messageCount = count
+
+  $scope.$on 'requestsUpdated', () ->
+    RequestService.openRequestsCount().then (count) ->
+      $scope.messageCount = count
 ]
