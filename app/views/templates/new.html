@@ -9,14 +9,7 @@
     </div>
   </div>
 
-  <ul ng-show="errors != null" class="list-group list-unstyled">
-    <li ng-repeat="error in errors">
-      <div class="alert alert-danger alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <strong>{{error}}</strong>
-      </div>
-    </li>
-  </ul>
+  <div errors></div>
 
   <ul ui-sortable class="list-group" ng-model="pel.questions">
     <li ng-repeat="question in pel.questions" class="list-group-item draggable">

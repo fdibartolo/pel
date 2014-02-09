@@ -1,14 +1,6 @@
 <div ng-cloak ng-init="inbox()">
-
-  <ul ng-show="errors != null" class="list-group list-unstyled">
-    <li ng-repeat="error in errors">
-      <div class="alert alert-danger alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <strong>{{error}}</strong>
-      </div>
-    </li>
-  </ul>
-
+  <div errors></div>
+  
   <h4 ng-show="requests.length == 0">
     Your inbox is clean! <br>
     You have no pending requests.

@@ -6,6 +6,7 @@ describe TemplatesController do
     new
     new_request
     inbox
+    errors
   ].each do |template|
     it "should return the #{template} template" do
       get 'template', { path: template }

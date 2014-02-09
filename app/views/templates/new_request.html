@@ -1,15 +1,8 @@
 <div ng-cloak ng-init="init()">
   <h3>Create New Request</h3>
-  
-  <ul ng-show="errors != null" class="list-group list-unstyled">
-    <li ng-repeat="error in errors">
-      <div class="alert alert-danger alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <strong>{{error}}</strong>
-      </div>
-    </li>
-  </ul>
-  
+
+  <div errors></div>
+
   <div ng-show="invalid_recipients != null && invalid_recipients.length > 0" class="panel panel-danger">
     <div class="panel-heading">
       <h3 class="panel-title">
