@@ -3,9 +3,11 @@ angular.module('cems.controllers').controller 'DashboardController',
 ($scope, $location, $filter, PersonalEngagementListService, RequestService, SessionService) ->
 
   $scope.init = ->
+    $scope.$emit 'showLoadingSpinner'
     PersonalEngagementListService.all().then (pels) ->
       SessionService.set 'pels', pels
       $scope.pels = pels
+      $scope.$emit 'hideLoadingSpinner'
 
   $scope.new = ->
     $location.path("/new")
@@ -34,7 +36,9 @@ angular.module('cems.controllers').controller 'DashboardController',
     typeof request.selectedPelId is "undefined"
 
   $scope.submitRequisitionFor = (request) ->
+    $scope.$emit 'showLoadingSpinner'
     RequestService.submitRequisition(request).then (result) ->
+      $scope.$emit 'hideLoadingSpinner'
       if typeof result.errors is "undefined"
         SessionService.broadcast('requestsUpdated')
         request.requisition_pel_id = request.selectedPelId

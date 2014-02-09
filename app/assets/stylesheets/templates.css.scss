@@ -47,3 +47,23 @@ $lightGreenColor: #EBFFED;
 .requestCompleted {
   background: $lightGreenColor;
 }
+
+// Common
+.spinner
+{
+  width: 256px;
+  margin: 0px auto;
+  top: 50%;
+  left: 50%;
+  margin-left: -128px;
+  position: fixed;
+  margin-top: -43px;
+  background: white;
+  border: 1px solid black;
+  height: 65px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 50px gray;
+  text-align: center;
+  color: black;
+  z-index:999;
+}
