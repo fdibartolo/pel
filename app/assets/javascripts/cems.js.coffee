@@ -18,15 +18,15 @@ app.config ['$httpProvider', '$routeProvider', ($httpProvider, $routeProvider) -
     controller: 'DashboardController'
 
   $routeProvider.when '/new',
-    templateUrl: '/templates/new.html'
+    templateUrl: '/templates/pel_form.html'
     controller: 'PersonalEngagementListController'
 
   $routeProvider.when '/edit/:id',
-    templateUrl: '/templates/new.html'
+    templateUrl: '/templates/pel_form.html'
     controller: 'PersonalEngagementListController'
 
   $routeProvider.when '/new_request',
-    templateUrl: '/templates/new_request.html'
+    templateUrl: '/templates/request_form.html'
     controller: 'RequestController'
 
   $routeProvider.otherwise redirectTo: '/dashboard'

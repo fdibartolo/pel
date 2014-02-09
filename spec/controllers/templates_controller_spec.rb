@@ -3,8 +3,8 @@ require 'spec_helper'
 describe TemplatesController do
   %w[
     dashboard
-    new
-    new_request
+    pel_form
+    request_form
     inbox
     errors
   ].each do |template|
