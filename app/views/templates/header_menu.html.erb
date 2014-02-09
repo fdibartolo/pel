@@ -18,8 +18,7 @@
           <li><%= link_to 'Dashboard', root_path %></li>
           <li>
             <a href= <%= "#{root_url}#/inbox" %> >
-              Inbox <span ng-show="<%= "#{inbox_count}" %> > 0" class="badge orangeBadge"><%= inbox_count %></span>
-              <!-- Inbox <span ng-show="messageCount > 0" class="badge greenBadge">{{messageCount}}</span> -->
+              Inbox <span ng-show="messageCount > 0" class="badge orangeBadge">{{messageCount}}</span>
             </a>
           </li>
           <% if can? :manage, Request %>
