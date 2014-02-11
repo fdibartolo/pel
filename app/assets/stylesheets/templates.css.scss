@@ -59,11 +59,13 @@ $lightGreenColor: #EBFFED;
   position: fixed;
   margin-top: -43px;
   background: white;
-  border: 1px solid black;
+  border: 2px solid darkorange;
   height: 65px;
   border-radius: 5px;
-  box-shadow: 0px 0px 50px gray;
+  box-shadow: 0px 10px 30px gray;
   text-align: center;
-  color: black;
+  color: darkorange;
   z-index:999;
+  padding-top: 20px;
+  font-size: 16px;
 }
