@@ -23,10 +23,12 @@ angular.module('cems.controllers').controller 'DashboardController',
     today.toDateString() == createdAt.toDateString()
 
   $scope.inbox = ->
+    $scope.$emit 'showLoadingSpinner'
     $scope.pels = SessionService.get('pels')
     RequestService.all().then (requests) ->
       SessionService.set 'requests', requests
       $scope.requests = requests
+      $scope.$emit 'hideLoadingSpinner'
 
   $scope.selectPelForRequisition = (request, pelId, text) ->
     request.selectedPelId = pelId
