@@ -20,7 +20,7 @@ gem 'cancan', '1.6.10'
 
 group :development, :test do
   gem 'rspec-rails', '2.14.1'
-  gem 'factory_girl_rails', '4.3.0'
+  gem 'factory_girl_rails', '4.4.0'
   gem 'jasmine-rails', '0.5.5'
   # gem 'jasmine-coverage'
 end
