@@ -3,7 +3,7 @@ ruby '2.0.0'
 
 gem 'rails', '4.0.3'
 
-gem 'mysql2', '0.3.14'
+gem 'mysql2', '0.3.15'
 gem 'sass-rails', '4.0.1'
 gem 'uglifier', '2.4.0'
 gem 'coffee-rails', '4.0.1'
